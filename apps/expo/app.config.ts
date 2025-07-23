@@ -3,16 +3,17 @@ import type { ConfigContext, ExpoConfig } from "expo/config";
 export default ({ config }: ConfigContext): ExpoConfig => ({
   ...config,
   name: "expo",
-  slug: "expo",
+  slug: "t3turbo",
   scheme: "expo",
   version: "0.1.0",
+  owner: "futhong",
   orientation: "portrait",
   icon: "./assets/icon-light.png",
   userInterfaceStyle: "automatic",
   updates: {
     fallbackToCacheTimeout: 0,
   },
-  newArchEnabled: true,
+  newArchEnabled: false,
   assetBundlePatterns: ["**/*"],
   ios: {
     bundleIdentifier: "your.bundle.identifier",
@@ -24,17 +25,18 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   },
   android: {
     package: "your.bundle.identifier",
+    jsEngine: "jsc",
     adaptiveIcon: {
       foregroundImage: "./assets/icon-light.png",
       backgroundColor: "#1F104A",
     },
     edgeToEdgeEnabled: true,
   },
-  // extra: {
-  //   eas: {
-  //     projectId: "your-eas-project-id",
-  //   },
-  // },
+  extra: {
+    eas: {
+      projectId: "31694801-c6c1-48fe-9c16-4f6251283c42",
+    },
+  },
   experiments: {
     tsconfigPaths: true,
     typedRoutes: true,
