@@ -9,7 +9,7 @@ import {
   type ViewStyle,
 } from "react-native"
 
-import { cn } from "@init/utils/ui"
+import { cn } from "@acme/ui"
 
 import { TextClassContext } from "~/shared/components/ui/text"
 import { useColorScheme } from "~/shared/hooks"

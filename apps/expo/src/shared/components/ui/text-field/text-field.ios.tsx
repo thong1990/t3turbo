@@ -2,7 +2,7 @@ import { useAugmentedRef, useControllableState } from "@rn-primitives/hooks"
 import * as React from "react"
 import { Pressable, TextInput, View } from "react-native"
 
-import { cn } from "@init/utils/ui"
+import { cn } from "@acme/ui"
 
 import { Text } from "../text"
 import type { TextFieldProps, TextFieldRef } from "./types"

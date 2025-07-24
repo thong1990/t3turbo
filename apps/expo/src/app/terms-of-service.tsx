@@ -2,7 +2,8 @@ import { Ionicons } from "~/shared/components/ui/icons"
 import { Link } from "expo-router"
 import { Platform, View } from "react-native"
 
-import { captureException } from "@init/observability/error/expo"
+import * as Sentry from "@sentry/react-native"
+const { captureException } = Sentry
 
 import { Container } from "~/shared/components/container"
 import { Header } from "~/shared/components/header"

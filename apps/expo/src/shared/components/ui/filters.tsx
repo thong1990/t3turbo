@@ -1,6 +1,6 @@
 import { type ImageSourcePropType, Pressable, View } from "react-native"
 
-import { cn } from "@init/utils/ui"
+import { cn } from "@acme/ui"
 import { ImageWithFallback } from "./image-with-fallback"
 import { Text } from "./text"
 import { Toggle } from "./toggle"

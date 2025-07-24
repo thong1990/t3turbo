@@ -1,4 +1,4 @@
-import { cn } from "@init/utils/ui"
+import { cn } from "@acme/ui"
 import Animated, { FadeIn } from "react-native-reanimated"
 import { SafeAreaView } from "react-native-safe-area-context"
 

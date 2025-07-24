@@ -45,6 +45,14 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     "expo-router",
     "expo-secure-store",
     "expo-web-browser",
+    "expo-font",
+    "expo-notifications",
+    [
+      "onesignal-expo-plugin",
+      {
+        mode: "development",
+      },
+    ],
     [
       "expo-splash-screen",
       {

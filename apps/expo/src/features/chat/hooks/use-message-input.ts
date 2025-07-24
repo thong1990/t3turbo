@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Keyboard } from "react-native"
 import { useUser } from "~/features/supabase/hooks"
-import { useSendMessage } from "../mutations"
+import { useSendMessage } from "../mutations/message-mutations"
 
 export function useMessageInput(channelUrl: string, disabled: boolean) {
   const [value, setValue] = useState("")

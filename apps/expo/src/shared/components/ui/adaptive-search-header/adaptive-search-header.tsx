@@ -23,7 +23,7 @@ import type {
 
 import { Button } from "~/shared/components/ui/button"
 import { Text } from "~/shared/components/ui/text"
-import { cn } from "@init/utils/ui"
+import { cn } from "@acme/ui"
 import { useColorScheme } from "~/shared/hooks"
 
 const SCREEN_OPTIONS = {

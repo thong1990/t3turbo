@@ -1,6 +1,6 @@
 import * as SeparatorPrimitive from "@rn-primitives/separator"
 import type { SlottableViewProps } from "@rn-primitives/types"
-import { cn } from "@init/utils/ui"
+import { cn } from "@acme/ui"
 
 type SeparatorProps = SlottableViewProps
 

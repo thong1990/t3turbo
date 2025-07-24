@@ -1,4 +1,4 @@
-import { cn } from "@init/utils/ui"
+import { cn } from "@acme/ui"
 import { Switch as RNSwitch } from "react-native"
 
 type SwitchProps = {

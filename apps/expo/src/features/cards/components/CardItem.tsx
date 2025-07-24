@@ -1,4 +1,4 @@
-import { cn } from "@init/utils/ui"
+import { cn } from "@acme/ui"
 import { memo } from "react"
 import { Pressable, View } from "react-native"
 import { ImageWithFallback } from "~/shared/components/ui/image-with-fallback"

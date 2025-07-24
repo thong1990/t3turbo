@@ -1,4 +1,4 @@
-import { cn } from "@init/utils/ui"
+import { cn } from "@acme/ui"
 import { router } from "expo-router"
 import { View } from "react-native"
 import { Pressable } from "react-native-gesture-handler"

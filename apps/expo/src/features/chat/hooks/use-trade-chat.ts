@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query"
 import { toast } from "sonner-native"
 
 import { client } from "~/features/supabase/client"
-import { useCreateChatSession } from "../mutations"
+import { useCreateChatSession } from "../mutations/chat-session-mutations"
 import {
   cleanupDuplicateChatSessions,
   getOrCreateTradeChannel,

@@ -1,4 +1,4 @@
-import { cn } from "@init/utils/ui"
+import { cn } from "@acme/ui"
 import * as Haptics from "expo-haptics"
 import { router } from "expo-router"
 import { Alert, Image, Pressable, View } from "react-native"

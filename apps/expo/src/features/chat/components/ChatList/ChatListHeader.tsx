@@ -3,7 +3,7 @@ import { Ionicons } from "~/shared/components/ui/icons"
 import { Text } from "~/shared/components/ui/text"
 
 import { useUser } from "~/features/supabase/hooks"
-import { useDeleteAllChatSessions } from "../../mutations"
+import { useDeleteAllChatSessions } from "../../mutations/chat-session-mutations"
 
 interface ChatListHeaderProps {
   onRefresh: () => void

@@ -1,4 +1,4 @@
-import { cn } from "@init/utils/ui"
+import { cn } from "@acme/ui"
 import { type ComponentPropsWithoutRef, useEffect } from "react"
 import Animated, {
   useAnimatedStyle,

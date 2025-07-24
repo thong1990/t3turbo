@@ -3,7 +3,7 @@ import { createFormHook, createFormHookContexts } from "@tanstack/react-form"
 import type { ComponentProps } from "react"
 import { Platform, View, type ViewProps } from "react-native"
 
-import { cn } from "@init/utils/ui"
+import { cn } from "@acme/ui"
 
 import { ActivityIndicator } from "~/shared/components/ui/activity-indicator"
 import { Button, buttonTextVariants } from "~/shared/components/ui/button"

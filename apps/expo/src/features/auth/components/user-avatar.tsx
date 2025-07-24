@@ -3,7 +3,7 @@ import {
   AvatarImage,
   AvatarFallback,
 } from "~/shared/components/ui/avatar"
-import { cn } from "@init/utils/ui"
+import { cn } from "@acme/ui"
 import { Ionicons } from "~/shared/components/ui/icons"
 
 interface UserAvatarProps {

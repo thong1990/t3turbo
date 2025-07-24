@@ -18,7 +18,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated"
 
-import { cn } from "@init/utils/ui"
+import { cn } from "@acme/ui"
 
 import { useColorScheme } from "~/shared/hooks"
 import type { TextFieldProps, TextFieldRef } from "./types"

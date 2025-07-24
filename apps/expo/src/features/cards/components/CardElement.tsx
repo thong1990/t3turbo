@@ -1,6 +1,6 @@
 import { Image } from "react-native"
 import { CARD_ELEMENTS, ELEMENT_IMAGES } from "../constants"
-import { cn } from "@init/utils/ui"
+import { cn } from "@acme/ui"
 
 type CardElementProps = {
   element?: string | null

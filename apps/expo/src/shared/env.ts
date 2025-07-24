@@ -1,8 +1,10 @@
-export { createEnv } from "@t3-oss/env-core"
-
+import { createEnv } from "@t3-oss/env-core"
 import * as z from "zod"
 
 export default createEnv({
+  server: {
+    NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
+  },
   client: {
     EXPO_PUBLIC_API_URL: z.string(),
     EXPO_PUBLIC_SUPABASE_URL: z.string(),

@@ -1,7 +1,7 @@
 try {
   import("../components/NativeAd")
   import("../components/AppOpenAd")
-  import("../hooks/use-native-ads.ios")
+  import("../hooks/use-ad-mob")
   import("../hooks/use-app-open-ads")
 } catch (error) {
   console.error("❌ Import error:", error)

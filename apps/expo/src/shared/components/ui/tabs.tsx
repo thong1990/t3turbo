@@ -1,4 +1,4 @@
-import { cn } from "@init/utils/ui"
+import { cn } from "@acme/ui"
 import * as TabsPrimitive from "@rn-primitives/tabs"
 import type * as React from "react"
 import { TextClassContext } from "./text"

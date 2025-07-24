@@ -1,4 +1,4 @@
-import { cn } from "@init/utils/ui"
+import { cn } from "@acme/ui"
 import type { ImageProps } from "expo-image"
 import { memo, useState } from "react"
 import { type ImageSourcePropType, View } from "react-native"

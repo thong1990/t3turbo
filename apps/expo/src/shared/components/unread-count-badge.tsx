@@ -1,5 +1,5 @@
 import { Text } from "~/shared/components/ui/text"
-import { cn } from "@init/utils/ui"
+import { cn } from "@acme/ui"
 import { View } from "react-native"
 
 interface UnreadCountBadgeProps {

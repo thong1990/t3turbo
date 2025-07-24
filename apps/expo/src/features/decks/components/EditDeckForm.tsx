@@ -1,4 +1,4 @@
-import { z } from "@init/utils/schema"
+import { z } from "zod"
 import * as Haptics from "expo-haptics"
 import { router, useLocalSearchParams } from "expo-router"
 import { useState } from "react"

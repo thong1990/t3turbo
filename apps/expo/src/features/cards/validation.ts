@@ -1,4 +1,4 @@
-import { z } from "@init/utils/schema"
+import { z } from "zod"
 import type { CardFilters } from "./types"
 
 /**

@@ -1,11 +1,11 @@
-import { cn } from "@init/utils/ui"
+import { cn } from "@acme/ui"
 import * as Haptics from "expo-haptics"
 import { memo } from "react"
 import { Pressable, View } from "react-native"
 import { Ionicons } from "~/shared/components/ui/icons"
 import { Text } from "~/shared/components/ui/text"
 import { ELIGIBLE_GIVE_WANT_RARITIES } from "../constants"
-import { useTradeActions } from "../hooks"
+import { useTradeActions } from "../hooks/use-trade-actions"
 import type { Card } from "../types"
 
 type TradeButtonsProps = {

@@ -1,4 +1,4 @@
-import { cn } from "@init/utils/ui"
+import { cn } from "@acme/ui"
 import type React from "react"
 import { createContext, useContext } from "react"
 import { View } from "react-native"

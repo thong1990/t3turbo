@@ -18,7 +18,7 @@ import {
 } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 
-import { cn } from "@init/utils/ui"
+import { cn } from "@acme/ui"
 import { Button } from "~/shared/components/ui/button"
 import { Text, TextClassContext } from "~/shared/components/ui/text"
 

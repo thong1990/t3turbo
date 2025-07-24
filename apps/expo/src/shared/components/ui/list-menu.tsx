@@ -1,5 +1,5 @@
 import { Ionicons } from "~/shared/components/ui/icons"
-import { cn } from "@init/utils/ui"
+import { cn } from "@acme/ui"
 import * as React from "react"
 import { Pressable, View } from "react-native"
 import { useColorScheme } from "~/shared/hooks"

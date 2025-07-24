@@ -2,7 +2,7 @@ import * as Clipboard from "expo-clipboard"
 import { useState } from "react"
 import { toast } from "sonner-native"
 import { useUser } from "~/features/supabase/hooks"
-import { useSendMessage } from "../mutations"
+import { useSendMessage } from "../mutations/message-mutations"
 import { useUserProfile } from "../queries"
 
 interface TradeCard {

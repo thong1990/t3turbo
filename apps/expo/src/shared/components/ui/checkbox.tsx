@@ -3,7 +3,7 @@ import { useControllableState } from "@rn-primitives/hooks"
 import * as React from "react"
 import { Ionicons } from "~/shared/components/ui/icons"
 
-import { cn } from "@init/utils/ui"
+import { cn } from "@acme/ui"
 
 type CheckboxProps = Omit<
   CheckboxPrimitive.RootProps,

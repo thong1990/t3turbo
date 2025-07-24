@@ -1,7 +1,7 @@
 import * as AvatarPrimitive from "@rn-primitives/avatar"
 import type { ComponentProps } from "react"
 
-import { cn } from "@init/utils/ui"
+import { cn } from "@acme/ui"
 
 function Avatar(props: ComponentProps<typeof AvatarPrimitive.Root>) {
   const { alt, className, ...rest } = props

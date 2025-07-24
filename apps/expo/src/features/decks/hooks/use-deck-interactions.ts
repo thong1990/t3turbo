@@ -5,6 +5,9 @@ import {
   useDeleteDeckInteractionMutation,
   useInsertDeckInteractionMutation,
 } from "../mutations"
+import type { Database } from "~/features/supabase/database.types"
+
+type UserDeckInteractionInsert = Database["public"]["Tables"]["user_deck_interactions"]["Insert"]
 import {
   useDeckInteractionCountsQuery,
   useDeckInteractionStatusQuery,
@@ -71,12 +74,13 @@ export function useDeckInteractions(deckId: string, userId: string) {
         }
       )
     } else {
+      const interactionData: UserDeckInteractionInsert = {
+        user_id: userId,
+        deck_id: deckId,
+        interaction_type: type,
+      }
       await insertMutation.mutateAsync(
-        {
-          user_id: userId,
-          deck_id: deckId,
-          interaction_type: type,
-        },
+        [interactionData],
         {
           onSuccess: () => {
             if (type === "upvote") {
@@ -101,12 +105,13 @@ export function useDeckInteractions(deckId: string, userId: string) {
   }
 
   const shareDeck = async () => {
+    const shareData: UserDeckInteractionInsert = {
+      user_id: userId,
+      deck_id: deckId,
+      interaction_type: "share",
+    }
     await insertMutation.mutateAsync(
-      {
-        user_id: userId,
-        deck_id: deckId,
-        interaction_type: "share",
-      },
+      [shareData],
       {
         onSuccess: () => {
           toast.success("Deck shared successfully!")
