@@ -13,7 +13,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   updates: {
     fallbackToCacheTimeout: 0,
   },
-  newArchEnabled: false,
+  newArchEnabled: false, // Try to build with this enabled
   assetBundlePatterns: ["**/*"],
   ios: {
     bundleIdentifier: "your.bundle.identifier",

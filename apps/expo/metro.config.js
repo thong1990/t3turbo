@@ -2,15 +2,22 @@
 const { getDefaultConfig } = require("expo/metro-config");
 const { FileStore } = require("metro-cache");
 const { withNativeWind } = require("nativewind/metro");
+const path = require("node:path")
 
-const path = require("node:path");
+let config = getDefaultConfig(__dirname)
 
-const config = withTurborepoManagedCache(
-  withNativeWind(getDefaultConfig(__dirname), {
-    input: "./src/styles.css",
-    configPath: "./tailwind.config.ts",
-  }),
+// Enable package exports and symlinks for workspace packages
+
+config = withTurborepoManagedCache(
+  config = withNativeWind(config, {
+    input: "./src/shared/assets/styles/globals.css",
+    inlineRem: 16,
+  })
 );
+
+config.resolver.unstable_enableSymlinks = true
+config.resolver.unstable_enablePackageExports = true
+
 module.exports = config;
 
 /**
