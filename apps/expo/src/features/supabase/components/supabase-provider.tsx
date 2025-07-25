@@ -1,6 +1,6 @@
 import type { Session, User } from "@supabase/supabase-js"
 import { router, useSegments } from "expo-router"
-import { createContext, useEffect, useState } from "react"
+import { createContext, useContext, useEffect, useState } from "react"
 
 import type { UserProfile } from "~/features/auth/hooks/use-user-profile"
 import { client } from "~/features/supabase/client"
@@ -17,7 +17,7 @@ type SupabaseProviderProps = {
   children: React.ReactNode
 }
 
-const SupabaseContext = createContext<SupabaseContextProps>({
+export const SupabaseContext = createContext<SupabaseContextProps>({
   user: null,
   session: null,
   userProfile: null,
@@ -47,6 +47,41 @@ export function SupabaseProvider({ children }: SupabaseProviderProps) {
     })
   }, [])
 
+  // Fetch user profile when user changes
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      if (!user?.id) {
+        setUserProfile(null)
+        setIsOnboarded(false)
+        return
+      }
+
+      try {
+        const { data, error } = await client
+          .from("user_profiles")
+          .select("*")
+          .eq("id", user.id)
+          .single()
+
+        if (error && error.code !== "PGRST116") {
+          console.error("Error fetching user profile:", error)
+          return
+        }
+
+        setUserProfile(data || null)
+        setIsOnboarded(!!data?.game_account_ign)
+      } catch (error) {
+        console.error("Error in fetchUserProfile:", error)
+        setUserProfile(null)
+        setIsOnboarded(false)
+      }
+    }
+
+    if (initialized) {
+      fetchUserProfile()
+    }
+  }, [user?.id, initialized])
+
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     if (initialized) {
@@ -75,4 +110,12 @@ export function SupabaseProvider({ children }: SupabaseProviderProps) {
       {children}
     </SupabaseContext.Provider>
   )
+}
+
+export function useSupabaseContext() {
+  const context = useContext(SupabaseContext)
+  if (context === undefined) {
+    throw new Error("useSupabaseContext must be used within a SupabaseProvider")
+  }
+  return context
 }

@@ -11,7 +11,6 @@ import {
   useOnlineStatus,
 } from "~/shared/hooks"
 
-
 import "~/shared/assets/styles/globals.css"
 
 export const unstable_settings = {

@@ -1,6 +1,6 @@
 import { Ionicons } from "~/shared/components/ui/icons"
 import * as Haptics from "expo-haptics"
-import { Pressable, TouchableOpacity, View } from "react-native"
+import { Pressable, Text, TouchableOpacity, View } from "react-native"
 import { TextField } from "~/shared/components/ui/text-field"
 
 interface TradeSearchBarProps {

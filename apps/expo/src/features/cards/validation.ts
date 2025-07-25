@@ -14,9 +14,16 @@ export const cardFiltersSchema = z.object({
 })
 
 const stringToArray = z
-  .string()
+  .union([z.string(), z.array(z.string())])
   .optional()
-  .transform(val => val?.split(",").filter(Boolean) ?? [])
+  .transform(val => {
+    if (Array.isArray(val)) {
+      // If it's already an array, filter out empty values
+      return val.filter(Boolean)
+    }
+    // If it's a string, split by comma and filter out empty values
+    return val?.split(",").filter(Boolean) ?? []
+  })
 
 export const cardUrlSearchParamsSchema = z.object({
   search: z.string().optional().default(""),

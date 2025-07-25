@@ -1,9 +1,12 @@
 import { useSubscription } from "@supabase-cache-helpers/postgrest-react-query"
+import { useQueryClient } from "@tanstack/react-query"
 import { client } from "~/features/supabase/client"
 import type { TradeMatch } from "./types"
 import { calculateMatchScore, isTradeableRarity } from "./utils"
 
 export function useTradeCardsSubscription(userId?: string) {
+  const queryClient = useQueryClient()
+  
   const { status } = useSubscription(
     client,
     `trade-user-cards-${userId}`,
@@ -14,7 +17,15 @@ export function useTradeCardsSubscription(userId?: string) {
     },
     ["id"],
     {
-      callback: payload => {},
+      callback: payload => {
+        // Invalidate trade matches when user cards change
+        queryClient.invalidateQueries({ queryKey: ["trade-matches"] })
+        
+        // If the change affects the current user, also invalidate their specific queries
+        if (payload.new?.user_id === userId || payload.old?.user_id === userId) {
+          queryClient.invalidateQueries({ queryKey: ["trade-matches", userId] })
+        }
+      },
     }
   )
 
@@ -73,9 +84,10 @@ export async function getTradeMatches(
       .gt("quantity_tradeable", 0)
 
     if (myCardsError) {
-      console.error("❌ Error fetching tradeable cards:", myCardsError)
+      console.error("❌ [TradeMatching] Error fetching tradeable cards:", myCardsError)
       throw myCardsError
     }
+
 
     // Get current user's wishlist (quantity_desired > 0)
     const { data: myWishlist, error: wishlistError } = await client
@@ -100,9 +112,10 @@ export async function getTradeMatches(
       .gt("quantity_desired", 0)
 
     if (wishlistError) {
-      console.error("❌ Error fetching wishlist:", wishlistError)
+      console.error("❌ [TradeMatching] Error fetching wishlist:", wishlistError)
       throw wishlistError
     }
+
 
     // Filter for tradeable rarities only
     const myTradeableCardsFiltered =
@@ -117,6 +130,7 @@ export async function getTradeMatches(
         return card && card.rarity && isTradeableRarity(card.rarity)
       }) || []
 
+
     if (
       myTradeableCardsFiltered.length === 0 ||
       myWishlistFiltered.length === 0
@@ -129,6 +143,7 @@ export async function getTradeMatches(
       item => item.card_id
     )
     const myWantedCardIds = myWishlistFiltered.map(item => item.card_id)
+
 
     // Find users who want my tradeable cards (they have quantity_desired > 0 for my tradeable cards)
     const { data: usersWhoWantMyCards, error: error1 } = await client
@@ -152,6 +167,7 @@ export async function getTradeMatches(
       .neq("user_id", currentUserId)
 
     if (error1) throw error1
+
 
     // Find users who have cards I want (they have quantity_tradeable > 0 for cards I want)
     const { data: usersWhoHaveMyWantedCards, error: error2 } = await client
@@ -177,6 +193,7 @@ export async function getTradeMatches(
       .neq("user_id", currentUserId)
 
     if (error2) throw error2
+
 
     // Find mutual matches
     const matches: TradeMatch[] = []
@@ -204,6 +221,7 @@ export async function getTradeMatches(
         mutualUsers.add(userId)
       }
     }
+
 
     // Create matches for each mutual user
     for (const partnerId of mutualUsers) {
@@ -277,6 +295,7 @@ export async function getTradeMatches(
       // Create matches for each rarity that has both give and want cards
       for (const [rarity, cards] of rarityGroups) {
         if (cards.cardsIGive.length > 0 && cards.cardsIWant.length > 0) {
+          const matchScore = calculateMatchScore(cards.cardsIWant, cards.cardsIGive)
           matches.push({
             partnerId,
             partnerName: partnerProfile.display_name || "Unknown User",
@@ -285,13 +304,15 @@ export async function getTradeMatches(
             rarity: rarity as import("./types").TradeableRarity,
             cardsIWant: cards.cardsIWant,
             cardsIGive: cards.cardsIGive,
-            matchScore: calculateMatchScore(cards.cardsIWant, cards.cardsIGive),
+            matchScore,
           })
         }
       }
     }
 
-    return matches.sort((a, b) => b.matchScore - a.matchScore)
+    const sortedMatches = matches.sort((a, b) => b.matchScore - a.matchScore)
+    
+    return sortedMatches
   } catch (error) {
     console.error("❌ Error getting trade matches:", error)
     throw error

@@ -1,5 +1,6 @@
 import { cn } from "@acme/ui"
 import { Tabs } from "expo-router"
+import type React from "react"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { Ionicons } from "~/shared/components/ui/icons"
 import { NAVIGATION_THEME } from "~/shared/constants"
@@ -7,7 +8,7 @@ import { useColorScheme } from "~/shared/hooks"
 
 const TAB_ICONS: Record<
   string,
-  { icon: keyof typeof Ionicons.glyphMap; label: string }
+  { icon: React.ComponentProps<typeof Ionicons>["name"]; label: string }
 > = {
   trade: { icon: "home", label: "Trade" },
   cards: { icon: "library-outline", label: "Dex" },

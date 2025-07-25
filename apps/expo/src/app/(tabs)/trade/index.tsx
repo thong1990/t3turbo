@@ -24,9 +24,6 @@ export default function TradeScreen() {
       ? parsed.data
       : { search: "", rarity: [], elements: [], cardType: [], pack: [] }
 
-    console.log("🐛 Raw params:", rawParams)
-    console.log("🐛 Parsed filters:", { searchQuery, filters })
-
     const {
       data: tradeMatches,
       isLoading,
@@ -103,7 +100,7 @@ export default function TradeScreen() {
 
               {error && <EmptyState message="Error loading trades." />}
 
-              {!isLoading && !tradeMatches?.length && (
+              {!isLoading && !tradeMatches?.length && !error && (
                 <EmptyState message="No trade matches found." />
               )}
 
