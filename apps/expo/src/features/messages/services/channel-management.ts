@@ -1,5 +1,5 @@
 import { client } from "~/features/supabase/client"
-import { GetSendbirdSDK } from "../factory"
+import { GetSendbirdSDK } from "./sendbird-factory"
 import {
   resetChannelFailures,
   shouldRecreateChannel,

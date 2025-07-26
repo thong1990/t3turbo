@@ -1,9 +1,11 @@
 import { Stack } from "expo-router"
 import * as SplashScreen from "expo-splash-screen"
+import React from "react"
 
 import "react-native-reanimated"
 import * as Sentry from "@sentry/react-native"
 import Providers from "~/shared/components/providers"
+import { useAuthEffects } from "~/features/auth/hooks/use-auth-effects"
 import {
   useHideSplashScreen,
   useInitialAndroidBarSync,
@@ -28,15 +30,13 @@ Sentry.captureException(new Error("First error"))
 function RootLayout() {
   useInitialAndroidBarSync()
 
-  // Track online status for React Query
-  useOnlineStatus()
-
   const fontsLoaded = useLoadFonts()
   useHideSplashScreen(fontsLoaded)
 
   return (
     <Providers>
-      <Stack initialRouteName="welcome">
+      <AuthEffectsWrapper>
+        <Stack initialRouteName="welcome">
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="welcome" options={{ headerShown: false }} />
         <Stack.Screen name="onboarding" options={{ headerShown: false }} />
@@ -69,9 +69,21 @@ function RootLayout() {
             headerShown: false,
           }}
         />
-      </Stack>
+        </Stack>
+      </AuthEffectsWrapper>
     </Providers>
   )
+}
+
+// Component to handle auth effects inside the Providers context
+function AuthEffectsWrapper({ children }: { children: React.ReactNode }) {
+  // Track online status for React Query (needs to be inside QueryClientProvider)
+  useOnlineStatus()
+  
+  // Handle Sendbird authentication when user logs in/out
+  useAuthEffects()
+  
+  return <>{children}</>
 }
 
 export default RootLayout

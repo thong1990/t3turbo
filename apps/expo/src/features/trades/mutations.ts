@@ -3,7 +3,7 @@ import {
   useUpdateMutation,
 } from "@supabase-cache-helpers/postgrest-react-query"
 
-import { createTradeChannel } from "~/features/chat/services/channel-management"
+import { createTradeChannel } from "~/features/messages/services/channel-management"
 import { client } from "~/features/supabase/client"
 import type { TradeMatch } from "./types"
 

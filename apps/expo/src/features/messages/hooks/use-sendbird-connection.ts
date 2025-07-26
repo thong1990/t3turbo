@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
 import { useUser } from "~/features/supabase/hooks"
 import type { CONNECTION_STATES } from "../constants"
-import { GetSendbirdSDK } from "../factory"
+import { GetSendbirdSDK } from "../services/sendbird-factory"
 import { useSendbirdAuth } from "../services/sendbird-auth"
 
 type ConnectionStatus = (typeof CONNECTION_STATES)[number]
 
-export function useChatConnection() {
+export function useSendbirdConnection() {
   const { data: user } = useUser()
   const { connectUser } = useSendbirdAuth()
   const [connectionStatus, setConnectionStatus] =

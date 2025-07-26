@@ -1,5 +1,5 @@
-// Chat configuration - all timing and limits
-export const CHAT_CONFIG = {
+// Messaging configuration - all timing and limits
+export const MESSAGING_CONFIG = {
   CHAT_SESSION_DURATION_HOURS: 24,
   MESSAGE_POLLING_INTERVAL: 30000,
   ONLINE_STATUS_CHECK_INTERVAL: 5000,

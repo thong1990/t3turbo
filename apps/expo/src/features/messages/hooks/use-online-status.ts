@@ -1,7 +1,7 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { useEffect } from "react"
 
-import { GetSendbirdSDK } from "../factory"
+import { GetSendbirdSDK } from "../services/sendbird-factory"
 
 export interface OnlineStatus {
   onlineStatus: "online" | "recently_online" | "offline"

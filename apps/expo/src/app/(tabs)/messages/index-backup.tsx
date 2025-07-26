@@ -21,6 +21,7 @@ export default function MessagesScreen() {
   const { data: user } = useUser()
   const { sdk } = useSendbirdChat()
   
+  console.log("🔍 Messages page debug:", { hasUser: !!user, hasSdk: !!sdk, userId: user?.id })
   const [refreshing, setRefreshing] = useState(false)
   const [searchText, setSearchText] = useState("")
   const [filteredChannelUrls, setFilteredChannelUrls] = useState<string[]>([])
@@ -258,6 +259,7 @@ export default function MessagesScreen() {
 
   // Show login prompt if user is not authenticated
   if (!user) {
+    console.log("👤 User not authenticated, showing login screen")
     return (
       <SafeAreaView className="flex-1 bg-background" edges={["top"]}>
         <View className="flex-1 items-center justify-center p-6">
@@ -304,13 +306,6 @@ export default function MessagesScreen() {
         onSearchChange={handleSearchChange}
       />
 
-      {/* Debug info before rendering list */}
-      {sdk?.currentUser ? (
-        console.log("✅ SDK has current user, rendering list")
-      ) : (
-        console.log("❌ SDK missing current user, list may not load")
-      )}
-      
       <GroupChannelListFragment
         key={refreshKey} // Force re-render when refreshKey changes
         channelListQueryParams={{

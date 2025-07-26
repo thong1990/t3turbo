@@ -3,8 +3,7 @@ import * as Notifications from "expo-notifications"
 import { useEffect, useRef } from "react"
 import { AppState } from "react-native"
 
-import { GetSendbirdSDK } from "../factory"
-import type { Message } from "../types"
+import { GetSendbirdSDK } from "../services/sendbird-factory"
 
 // Track message membership failures for debugging
 const membershipFailures = new Map<string, number>()
@@ -40,6 +39,16 @@ interface SendBirdMessageType {
     userId: string
     nickname?: string
   }
+}
+
+// Basic message type for the hook
+interface Message {
+  id: string
+  channelUrl: string
+  senderId: string
+  message: string
+  timestamp: Date
+  messageType: string
 }
 
 export const useRealtimeMessages = (channelUrl: string, enabled = true) => {
@@ -124,10 +133,6 @@ export const useRealtimeMessages = (channelUrl: string, enabled = true) => {
                 }
               }
             )
-
-            // Force refetch chat list to update last message
-            const { clearLatestMessageCache } = require("../queries/chat-list")
-            clearLatestMessageCache(channel.url)
 
             // Force immediate refetch instead of just invalidating
             queryClient.refetchQueries({

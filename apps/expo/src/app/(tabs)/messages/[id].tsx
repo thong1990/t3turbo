@@ -99,8 +99,8 @@ function MessageDetailPageContent() {
   const handleBackPress = () => {
     // Dismiss keyboard before navigation
     Keyboard.dismiss()
-    // Use router.back() to properly handle navigation stack
-    router.back()
+    // Navigate back to messages list
+    router.push("/(tabs)/messages")
   }
 
   const handleTradeSessionToggle = (isExpanded: boolean) => {

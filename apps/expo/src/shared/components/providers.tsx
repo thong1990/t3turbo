@@ -10,7 +10,7 @@ import { SendbirdUIKitContainer } from "@sendbird/uikit-react-native"
 
 import { AdProvider } from "~/features/ads/components/AdProvider"
 import { AppOpenAdProvider } from "~/features/ads/components/AppOpenAd"
-import { ChatProvider } from "~/features/chat/provider"
+import { SendbirdProvider } from "~/features/messages/providers/sendbird-provider"
 import { platformServices } from "~/features/messages/services"
 import { SupabaseProvider } from "~/features/supabase/components/supabase-provider"
 import { queryClient } from "~/shared/api"
@@ -36,7 +36,7 @@ export default function Providers({ children }: { children: ReactNode }) {
               enableAutoPushTokenRegistration: false,
             }}
           >
-            <ChatProvider>
+            <SendbirdProvider>
               {/* <KeyboardProvider statusBarTranslucent navigationBarTranslucent> */}
               <ThemeProvider>
                 <GestureHandlerRootView style={{ flex: 1 }}>
@@ -50,7 +50,7 @@ export default function Providers({ children }: { children: ReactNode }) {
                 </GestureHandlerRootView>
               </ThemeProvider>
               {/* </KeyboardProvider> */}
-            </ChatProvider>
+            </SendbirdProvider>
           </SendbirdUIKitContainer>
         </SupabaseProvider>
       </QueryClientProvider>

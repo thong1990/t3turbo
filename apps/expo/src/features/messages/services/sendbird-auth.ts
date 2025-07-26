@@ -1,5 +1,5 @@
 import { client } from "~/features/supabase/client"
-import { GetSendbirdSDK, SendbirdAPI } from "../factory"
+import { GetSendbirdSDK, SendbirdAPI } from "./sendbird-factory"
 import { trackUserConnection } from "../hooks/use-online-status"
 
 import { useUser } from "~/features/supabase/hooks"

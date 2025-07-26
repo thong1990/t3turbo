@@ -2,10 +2,10 @@ import type React from "react"
 import { createContext, useContext, useEffect, useState } from "react"
 
 import { useSendbirdChat } from "@sendbird/uikit-react-native"
-import { SetSendbirdSDK } from "./factory"
-import { useChatConnection } from "./hooks/use-chat-connection"
+import { SetSendbirdSDK } from "../services/sendbird-factory"
+import { useSendbirdConnection } from "../hooks/use-sendbird-connection"
 
-const ChatContext = createContext<{
+const SendbirdContext = createContext<{
   currentChannelUrl: string | null
   setCurrentChannelUrl: (url: string | null) => void
 }>({
@@ -13,7 +13,7 @@ const ChatContext = createContext<{
   setCurrentChannelUrl: () => { },
 })
 
-export const useChatContext = () => useContext(ChatContext)
+export const useSendbirdContext = () => useContext(SendbirdContext)
 
 // Component to handle SDK initialization
 function SendbirdSDKInitializer() {
@@ -21,10 +21,10 @@ function SendbirdSDKInitializer() {
 
   useEffect(() => {
     if (sdk) {
-
+      console.log("✅ Sendbird SDK initialized successfully")
       SetSendbirdSDK(sdk)
     } else {
-
+      console.log("⚠️ Sendbird SDK not available")
     }
   }, [sdk])
 
@@ -33,25 +33,25 @@ function SendbirdSDKInitializer() {
 
 // Component to handle user connection
 function SendbirdUserConnection() {
-  const { sendbirdConnected, connectionStatus } = useChatConnection()
+  const { sendbirdConnected, connectionStatus } = useSendbirdConnection()
 
   useEffect(() => {
-
+    console.log("📡 Sendbird connection status:", { sendbirdConnected, connectionStatus })
   }, [sendbirdConnected, connectionStatus])
 
   return null
 }
 
-export const ChatProvider = ({ children }: React.PropsWithChildren) => {
+export const SendbirdProvider = ({ children }: React.PropsWithChildren) => {
   const [currentChannelUrl, setCurrentChannelUrl] = useState<string | null>(
     null
   )
 
   return (
-    <ChatContext.Provider value={{ currentChannelUrl, setCurrentChannelUrl }}>
+    <SendbirdContext.Provider value={{ currentChannelUrl, setCurrentChannelUrl }}>
       <SendbirdSDKInitializer />
       <SendbirdUserConnection />
       {children}
-    </ChatContext.Provider>
+    </SendbirdContext.Provider>
   )
 }
