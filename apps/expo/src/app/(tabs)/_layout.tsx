@@ -14,7 +14,6 @@ const TAB_ICONS: Record<
   cards: { icon: "library-outline", label: "Dex" },
   decks: { icon: "layers-outline", label: "Decks" },
   messages: { icon: "chatbubbles-outline", label: "Messages" },
-  chat: { icon: "chatbubbles-outline", label: "Chat" },
   profile: { icon: "person-outline", label: "Profile" },
 }
 
