@@ -16,7 +16,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   newArchEnabled: false, // Try to build with this enabled
   assetBundlePatterns: ["**/*"],
   ios: {
-    bundleIdentifier: "your.bundle.identifier",
+    bundleIdentifier: "com.futhong.poketradetcg",
     supportsTablet: true,
     icon: {
       light: "./assets/icon-light.png",
@@ -24,7 +24,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     },
   },
   android: {
-    package: "your.bundle.identifier",
+    package: "com.futhong.poketradetcg",
     jsEngine: "jsc",
     adaptiveIcon: {
       foregroundImage: "./assets/icon-light.png",

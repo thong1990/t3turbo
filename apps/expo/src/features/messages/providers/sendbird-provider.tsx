@@ -21,10 +21,7 @@ function SendbirdSDKInitializer() {
 
   useEffect(() => {
     if (sdk) {
-      console.log("✅ Sendbird SDK initialized successfully")
       SetSendbirdSDK(sdk)
-    } else {
-      console.log("⚠️ Sendbird SDK not available")
     }
   }, [sdk])
 
@@ -36,7 +33,7 @@ function SendbirdUserConnection() {
   const { sendbirdConnected, connectionStatus } = useSendbirdConnection()
 
   useEffect(() => {
-    console.log("📡 Sendbird connection status:", { sendbirdConnected, connectionStatus })
+    // Track connection status for debugging if needed
   }, [sendbirdConnected, connectionStatus])
 
   return null

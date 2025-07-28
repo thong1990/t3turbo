@@ -295,7 +295,6 @@ export default function MessagesScreen() {
   }
 
   // Show messages list for authenticated users
-  console.log("✅ User authenticated, showing messages list")
   return (
     <SafeAreaView className="flex-1 bg-background" edges={["top"]}>
       <ChatListHeader
@@ -304,13 +303,6 @@ export default function MessagesScreen() {
         onSearchChange={handleSearchChange}
       />
 
-      {/* Debug info before rendering list */}
-      {sdk?.currentUser ? (
-        console.log("✅ SDK has current user, rendering list")
-      ) : (
-        console.log("❌ SDK missing current user, list may not load")
-      )}
-      
       <GroupChannelListFragment
         key={refreshKey} // Force re-render when refreshKey changes
         channelListQueryParams={{
