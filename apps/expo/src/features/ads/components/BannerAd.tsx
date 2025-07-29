@@ -3,8 +3,6 @@ import { useEffect, useState } from "react"
 import { ActivityIndicator, Text, View } from "react-native"
 import { NativeModules } from "react-native"
 
-import { useSubscription } from "~/features/subscription/hooks/use-subscription"
-import { usePaywallPlacements } from "~/features/subscription/hooks/use-paywall-placements"
 import { adMobService } from "../services/ad-mob-service"
 import { adTrackingService } from "../services/ad-tracking"
 import type { AdPlacement } from "../types"
@@ -25,8 +23,11 @@ export function BannerAd({ placement, size, className = "" }: BannerAdProps) {
   const [error, setError] = useState<string | null>(null)
   const [isAdMobAvailable, setIsAdMobAvailable] = useState(false)
   
-  const { isSubscribed } = useSubscription()
-  const { triggerAdFrustrationPaywall } = usePaywallPlacements()
+  const isSubscribed = false
+  const triggerAdFrustrationPaywall = () => {}
+
+  // const { isSubscribed } = useSubscription()
+  // const { triggerAdFrustrationPaywall } = usePaywallPlacements()
 
   const adUnitId = adMobService.getBannerAdUnitId()
   const isExpoGo = Constants.executionEnvironment === "storeClient"

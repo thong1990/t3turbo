@@ -6,10 +6,12 @@ import * as NavigationBar from "expo-navigation-bar"
 import * as Notifications from "expo-notifications"
 import { type Route, SplashScreen, router } from "expo-router"
 import { useColorScheme as useNativewindColorScheme } from "nativewind"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { Platform } from "react-native"
+import Purchases from "react-native-purchases"
 
 import { COLORS } from "~/shared/theme/colors"
+import env from "./env"
 
 export function useColorScheme() {
   const { colorScheme, setColorScheme: setNativeWindColorScheme } =
@@ -104,6 +106,49 @@ export function useLoadFonts() {
   })
 
   return loaded
+}
+
+export function useInitRevenueCat() {
+  const [purchasesConfigured, setPurchasesConfigured] = useState(false);
+
+  // Configure Purchases on app startup
+  useEffect(() => {
+    const configurePurchases = async () => {
+      try {
+        // Enable debug logs before calling `configure`
+        Purchases.setLogLevel(Purchases.LOG_LEVEL.DEBUG);
+
+        // Get the appropriate API key based on platform
+        let apiKey = '';
+        if (Platform.OS === 'ios') {
+          apiKey = env.EXPO_PUBLIC_REVENUECAT_API_KEY_IOS ?? '';
+        } else if (Platform.OS === 'android') {
+          apiKey = env.EXPO_PUBLIC_REVENUECAT_API_KEY_ANDROID ?? '';
+        }
+
+        if (apiKey) {
+          // Initialize the RevenueCat Purchases SDK
+          // appUserID is null, so an anonymous ID will be generated automatically
+          await Purchases.configure({
+            apiKey: apiKey,
+            appUserID: null,
+            useAmazon: false,
+            diagnosticsEnabled: true
+          });
+          setPurchasesConfigured(true);
+          console.log('Purchases configured successfully');
+        } else {
+          console.warn('No API key found for platform:', Platform.OS);
+        }
+      } catch (e) {
+        console.error('Failed to configure Purchases:', e);
+      }
+    };
+
+    configurePurchases();
+  }, []);
+
+  return purchasesConfigured;
 }
 
 export function useNotificationObserver() {

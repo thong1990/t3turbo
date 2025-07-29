@@ -3,8 +3,8 @@ import { Link, router } from "expo-router"
 import { View } from "react-native"
 import { BannerAd } from "~/features/ads/components/BannerAd"
 import { useUserProfile } from "~/features/auth/hooks/use-user-profile"
-import { useSubscription } from "~/features/subscription/hooks/use-subscription"
-import { usePaywallPlacements } from "~/features/subscription/hooks/use-paywall-placements"
+// import { useSubscription } from "~/features/subscription"
+// import { usePaywallPlacements } from "~/features/subscription"
 import { Container } from "~/shared/components/container"
 import {
   Avatar,
@@ -27,8 +27,9 @@ export default function ProfileScreen() {
   const { mutate: signOut } = useSignOut()
   const { profile } = useUserProfile()
   const { colorScheme } = useColorScheme()
-  const { isSubscribed, subscriptionStatus } = useSubscription()
-  const { triggerProfileSubscribePaywall } = usePaywallPlacements()
+  const isSubscribed = false
+  const subscriptionStatus = null
+  const triggerProfileSubscribePaywall = () => {}
 
   const handleEditProfile = () => {
     router.push("/profile/edit")

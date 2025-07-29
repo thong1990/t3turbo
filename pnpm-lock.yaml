@@ -113,13 +113,13 @@ importers:
         version: 1.2.0(react-native-web@0.20.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)
       '@sendbird/uikit-chat-hooks':
         specifier: ^3.9.6
-        version: 3.9.6(@sendbird/chat@4.19.5(@react-native-async-storage/async-storage@2.1.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0)))(react-native-mmkv@3.3.0(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)))(date-fns@4.1.0)(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)
+        version: 3.9.6(@sendbird/chat@4.19.5(@react-native-async-storage/async-storage@2.1.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0)))(react-native-mmkv@2.12.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)))(date-fns@4.1.0)(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)
       '@sendbird/uikit-react-native':
         specifier: ^3.9.6
-        version: 3.9.6(7be2733a88f398ba8f1c569033f83209)
+        version: 3.9.6(e00f4158c64f666f2d1d1c8d9fcee69b)
       '@sendbird/uikit-utils':
         specifier: ^3.9.6
-        version: 3.9.6(@sendbird/chat@4.19.5(@react-native-async-storage/async-storage@2.1.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0)))(react-native-mmkv@3.3.0(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)))(date-fns@4.1.0)(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)
+        version: 3.9.6(@sendbird/chat@4.19.5(@react-native-async-storage/async-storage@2.1.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0)))(react-native-mmkv@2.12.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)))(date-fns@4.1.0)(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)
       '@sentry/react-native':
         specifier: ^6.14.0
         version: 6.14.0(expo@53.0.20(@babel/core@7.27.4)(@expo/metro-runtime@5.0.4(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0)))(bufferutil@4.0.8)(graphql@15.8.0)(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0))(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)
@@ -261,12 +261,18 @@ importers:
       react-native-google-mobile-ads:
         specifier: ^15.4.0
         version: 15.4.0(expo@53.0.20(@babel/core@7.27.4)(@expo/metro-runtime@5.0.4(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0)))(bufferutil@4.0.8)(graphql@15.8.0)(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0))(react@19.0.0)
+      react-native-mmkv:
+        specifier: ^2.12.2
+        version: 2.12.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)
       react-native-onesignal:
         specifier: ^5.2.13
         version: 5.2.13
       react-native-purchases:
         specifier: ^9.1.0
         version: 9.1.0(react-native-web@0.20.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)
+      react-native-purchases-ui:
+        specifier: ^9.1.0
+        version: 9.1.0(react-native-purchases@9.1.0(react-native-web@0.20.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0))(react-native-web@0.20.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)
       react-native-reanimated:
         specifier: ~3.17.5
         version: 3.17.5(@babel/core@7.27.4)(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)
@@ -7336,11 +7342,11 @@ packages:
       react: '*'
       react-native: '*'
 
-  react-native-mmkv@3.3.0:
-    resolution: {integrity: sha512-2iPjIJ+IAODXN35wm53EN6nv+hR/0NXLLiLWOdPA/0gXDB2dYVrr6MqvoiFpxhLhdj0B8fkf5ARNVavJaSvuuQ==}
+  react-native-mmkv@2.12.2:
+    resolution: {integrity: sha512-6058Aq0p57chPrUutLGe9fYoiDVDNMU2PKV+lLFUJ3GhoHvUrLdsS1PDSCLr00yqzL4WJQ7TTzH+V8cpyrNcfg==}
     peerDependencies:
       react: '*'
-      react-native: '*'
+      react-native: '>=0.71.0'
 
   react-native-nitro-modules@0.26.4:
     resolution: {integrity: sha512-sCZ0U+FY6JM73HaZYyc4kSRV7JQZXGfbimpYJzaAaZFQMGpJFkD5c3Jt66j1v83wN/m6D/SM9yyx+dN6XTfGAg==}
@@ -7350,6 +7356,17 @@ packages:
 
   react-native-onesignal@5.2.13:
     resolution: {integrity: sha512-PCpOZfepieSPHaaT3uFYHDMy2+XMi7HMGiCWW7oic6SthW4NmjYPt0AmykZP7SJIQ9C3h2zMMlwrvPKK2ooxoQ==}
+
+  react-native-purchases-ui@9.1.0:
+    resolution: {integrity: sha512-uQnpt7NZbQNsMR5G/BXr07RE4gS37ZFirq1KzA3w2lu/yU4oQhsfA2/pajaY5AA+qumLrNY7JPCMsKcgIgtP+A==}
+    peerDependencies:
+      react: '*'
+      react-native: '>= 0.73.0'
+      react-native-purchases: 9.1.0
+      react-native-web: '*'
+    peerDependenciesMeta:
+      react-native-web:
+        optional: true
 
   react-native-purchases@9.1.0:
     resolution: {integrity: sha512-7/TFvTcOJB/JIwNUqrV+3B8qs09F+mb3eb30ZwinZDtIDabYkjdNNhxsUf45U+YkJSrTYU40XhNMMZdPqajRRQ==}
@@ -11773,23 +11790,23 @@ snapshots:
 
   '@rtsao/scc@1.1.0': {}
 
-  '@sendbird/chat@4.19.5(@react-native-async-storage/async-storage@2.1.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0)))(react-native-mmkv@3.3.0(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0))':
+  '@sendbird/chat@4.19.5(@react-native-async-storage/async-storage@2.1.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0)))(react-native-mmkv@2.12.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0))':
     optionalDependencies:
       '@react-native-async-storage/async-storage': 2.1.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))
-      react-native-mmkv: 3.3.0(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)
+      react-native-mmkv: 2.12.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)
 
-  '@sendbird/uikit-chat-hooks@3.9.6(@sendbird/chat@4.19.5(@react-native-async-storage/async-storage@2.1.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0)))(react-native-mmkv@3.3.0(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)))(date-fns@4.1.0)(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)':
+  '@sendbird/uikit-chat-hooks@3.9.6(@sendbird/chat@4.19.5(@react-native-async-storage/async-storage@2.1.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0)))(react-native-mmkv@2.12.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)))(date-fns@4.1.0)(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)':
     dependencies:
-      '@sendbird/chat': 4.19.5(@react-native-async-storage/async-storage@2.1.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0)))(react-native-mmkv@3.3.0(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0))
-      '@sendbird/uikit-utils': 3.9.6(@sendbird/chat@4.19.5(@react-native-async-storage/async-storage@2.1.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0)))(react-native-mmkv@3.3.0(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)))(date-fns@4.1.0)(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)
+      '@sendbird/chat': 4.19.5(@react-native-async-storage/async-storage@2.1.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0)))(react-native-mmkv@2.12.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0))
+      '@sendbird/uikit-utils': 3.9.6(@sendbird/chat@4.19.5(@react-native-async-storage/async-storage@2.1.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0)))(react-native-mmkv@2.12.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)))(date-fns@4.1.0)(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)
       react: 19.0.0
     transitivePeerDependencies:
       - date-fns
       - react-native
 
-  '@sendbird/uikit-react-native-foundation@3.9.6(@sendbird/chat@4.19.5(@react-native-async-storage/async-storage@2.1.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0)))(react-native-mmkv@3.3.0(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)))(date-fns@4.1.0)(react-native-safe-area-context@5.4.0(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0))(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)':
+  '@sendbird/uikit-react-native-foundation@3.9.6(@sendbird/chat@4.19.5(@react-native-async-storage/async-storage@2.1.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0)))(react-native-mmkv@2.12.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)))(date-fns@4.1.0)(react-native-safe-area-context@5.4.0(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0))(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)':
     dependencies:
-      '@sendbird/uikit-utils': 3.9.6(@sendbird/chat@4.19.5(@react-native-async-storage/async-storage@2.1.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0)))(react-native-mmkv@3.3.0(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)))(date-fns@4.1.0)(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)
+      '@sendbird/uikit-utils': 3.9.6(@sendbird/chat@4.19.5(@react-native-async-storage/async-storage@2.1.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0)))(react-native-mmkv@2.12.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)))(date-fns@4.1.0)(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)
       react: 19.0.0
       react-native: 0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0)
       react-native-safe-area-context: 5.4.0(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)
@@ -11797,20 +11814,20 @@ snapshots:
       - '@sendbird/chat'
       - date-fns
 
-  '@sendbird/uikit-react-native@3.9.6(7be2733a88f398ba8f1c569033f83209)':
+  '@sendbird/uikit-react-native@3.9.6(e00f4158c64f666f2d1d1c8d9fcee69b)':
     dependencies:
       '@openspacelabs/react-native-zoomable-view': 2.4.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)
       '@react-native-community/netinfo': 11.4.1(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))
-      '@sendbird/chat': 4.19.5(@react-native-async-storage/async-storage@2.1.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0)))(react-native-mmkv@3.3.0(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0))
-      '@sendbird/uikit-chat-hooks': 3.9.6(@sendbird/chat@4.19.5(@react-native-async-storage/async-storage@2.1.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0)))(react-native-mmkv@3.3.0(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)))(date-fns@4.1.0)(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)
-      '@sendbird/uikit-react-native-foundation': 3.9.6(@sendbird/chat@4.19.5(@react-native-async-storage/async-storage@2.1.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0)))(react-native-mmkv@3.3.0(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)))(date-fns@4.1.0)(react-native-safe-area-context@5.4.0(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0))(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)
-      '@sendbird/uikit-tools': 0.0.7(@sendbird/chat@4.19.5(@react-native-async-storage/async-storage@2.1.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0)))(react-native-mmkv@3.3.0(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)))(react@19.0.0)
-      '@sendbird/uikit-utils': 3.9.6(@sendbird/chat@4.19.5(@react-native-async-storage/async-storage@2.1.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0)))(react-native-mmkv@3.3.0(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)))(date-fns@4.1.0)(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)
+      '@sendbird/chat': 4.19.5(@react-native-async-storage/async-storage@2.1.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0)))(react-native-mmkv@2.12.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0))
+      '@sendbird/uikit-chat-hooks': 3.9.6(@sendbird/chat@4.19.5(@react-native-async-storage/async-storage@2.1.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0)))(react-native-mmkv@2.12.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)))(date-fns@4.1.0)(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)
+      '@sendbird/uikit-react-native-foundation': 3.9.6(@sendbird/chat@4.19.5(@react-native-async-storage/async-storage@2.1.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0)))(react-native-mmkv@2.12.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)))(date-fns@4.1.0)(react-native-safe-area-context@5.4.0(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0))(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)
+      '@sendbird/uikit-tools': 0.0.7(@sendbird/chat@4.19.5(@react-native-async-storage/async-storage@2.1.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0)))(react-native-mmkv@2.12.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)))(react@19.0.0)
+      '@sendbird/uikit-utils': 3.9.6(@sendbird/chat@4.19.5(@react-native-async-storage/async-storage@2.1.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0)))(react-native-mmkv@2.12.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)))(date-fns@4.1.0)(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)
       date-fns: 4.1.0
       react: 19.0.0
       react-native: 0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0)
       react-native-audio-recorder-player: 4.2.1(react-native-nitro-modules@0.26.4(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0))(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)
-      react-native-mmkv: 3.3.0(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)
+      react-native-mmkv: 2.12.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)
       react-native-safe-area-context: 5.4.0(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)
     optionalDependencies:
       '@react-native-async-storage/async-storage': 2.1.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))
@@ -11826,18 +11843,18 @@ snapshots:
     transitivePeerDependencies:
       - react-native-fast-image
 
-  '@sendbird/uikit-tools@0.0.7(@sendbird/chat@4.19.5(@react-native-async-storage/async-storage@2.1.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0)))(react-native-mmkv@3.3.0(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)))(react@19.0.0)':
+  '@sendbird/uikit-tools@0.0.7(@sendbird/chat@4.19.5(@react-native-async-storage/async-storage@2.1.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0)))(react-native-mmkv@2.12.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)))(react@19.0.0)':
     dependencies:
-      '@sendbird/chat': 4.19.5(@react-native-async-storage/async-storage@2.1.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0)))(react-native-mmkv@3.3.0(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0))
+      '@sendbird/chat': 4.19.5(@react-native-async-storage/async-storage@2.1.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0)))(react-native-mmkv@2.12.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0))
       react: 19.0.0
 
-  '@sendbird/uikit-utils@3.9.6(@sendbird/chat@4.19.5(@react-native-async-storage/async-storage@2.1.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0)))(react-native-mmkv@3.3.0(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)))(date-fns@4.1.0)(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)':
+  '@sendbird/uikit-utils@3.9.6(@sendbird/chat@4.19.5(@react-native-async-storage/async-storage@2.1.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0)))(react-native-mmkv@2.12.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)))(date-fns@4.1.0)(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)':
     dependencies:
       date-fns: 4.1.0
       react: 19.0.0
       string.prototype.matchall: 4.0.12
     optionalDependencies:
-      '@sendbird/chat': 4.19.5(@react-native-async-storage/async-storage@2.1.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0)))(react-native-mmkv@3.3.0(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0))
+      '@sendbird/chat': 4.19.5(@react-native-async-storage/async-storage@2.1.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0)))(react-native-mmkv@2.12.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0))
       react-native: 0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0)
 
   '@sentry-internal/browser-utils@8.54.0':
@@ -16209,7 +16226,7 @@ snapshots:
       react: 19.0.0
       react-native: 0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0)
 
-  react-native-mmkv@3.3.0(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0):
+  react-native-mmkv@2.12.2(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0):
     dependencies:
       react: 19.0.0
       react-native: 0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0)
@@ -16222,6 +16239,15 @@ snapshots:
   react-native-onesignal@5.2.13:
     dependencies:
       invariant: 2.2.4
+
+  react-native-purchases-ui@9.1.0(react-native-purchases@9.1.0(react-native-web@0.20.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0))(react-native-web@0.20.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0):
+    dependencies:
+      '@revenuecat/purchases-typescript-internal': 16.0.2
+      react: 19.0.0
+      react-native: 0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0)
+      react-native-purchases: 9.1.0(react-native-web@0.20.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0)
+    optionalDependencies:
+      react-native-web: 0.20.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
 
   react-native-purchases@9.1.0(react-native-web@0.20.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-native@0.79.5(@babel/core@7.27.4)(@types/react@19.0.14)(bufferutil@4.0.8)(react@19.0.0))(react@19.0.0):
     dependencies:

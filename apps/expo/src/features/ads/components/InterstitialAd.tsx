@@ -1,7 +1,7 @@
 import type React from "react"
 
-import { useSubscription } from "~/features/subscription/hooks/use-subscription"
-import { usePaywallPlacements } from "~/features/subscription/hooks/use-paywall-placements"
+import { useSubscription } from "~/features/subscription"
+import { usePaywallPlacements } from "~/features/subscription"
 import { useAdMob } from "../hooks/use-ad-mob"
 import type { AdPlacement } from "../types"
 

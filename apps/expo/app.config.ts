@@ -18,6 +18,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   ios: {
     bundleIdentifier: "com.futhong.poketradetcg",
     supportsTablet: true,
+    usesNonExemptEncryption: false,
     icon: {
       light: "./assets/icon-light.png",
       dark: "./assets/icon-dark.png",
@@ -42,6 +43,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     typedRoutes: true,
   },
   plugins: [
+    "expo-dev-client",
     "expo-router",
     "expo-secure-store",
     "expo-web-browser",

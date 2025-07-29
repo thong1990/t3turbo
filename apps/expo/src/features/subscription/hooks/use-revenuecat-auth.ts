@@ -16,9 +16,9 @@ export function useRevenueCatAuth() {
 
   const logOut = useCallback(async () => {
     try {
-      const { customerInfo } = await Purchases.logOut()
+      await Purchases.logOut()
       console.log('RevenueCat user logged out')
-      return { success: true, customerInfo }
+      return { success: true }
     } catch (error) {
       console.error('RevenueCat logout failed:', error)
       return { success: false, error }
