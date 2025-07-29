@@ -9,7 +9,6 @@ import { useAuthEffects } from "~/features/auth/hooks/use-auth-effects"
 import {
   useHideSplashScreen,
   useInitialAndroidBarSync,
-  useInitRevenueCat,
   useLoadFonts,
   useOnlineStatus,
 } from "~/shared/hooks"
@@ -30,7 +29,6 @@ Sentry.captureException(new Error("First error"))
 
 function RootLayout() {
   useInitialAndroidBarSync()
-  const purchasesConfigured = useInitRevenueCat()
 
   const fontsLoaded = useLoadFonts()
   useHideSplashScreen(fontsLoaded)

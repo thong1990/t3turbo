@@ -3,8 +3,7 @@ import { Link, router } from "expo-router"
 import { View } from "react-native"
 import { BannerAd } from "~/features/ads/components/BannerAd"
 import { useUserProfile } from "~/features/auth/hooks/use-user-profile"
-// import { useSubscription } from "~/features/subscription"
-// import { usePaywallPlacements } from "~/features/subscription"
+import { useSubscriptionFeatures, SubscriptionStatus, PaywallButton } from "~/features/subscriptions"
 import { Container } from "~/shared/components/container"
 import {
   Avatar,
@@ -27,16 +26,14 @@ export default function ProfileScreen() {
   const { mutate: signOut } = useSignOut()
   const { profile } = useUserProfile()
   const { colorScheme } = useColorScheme()
-  const isSubscribed = false
-  const subscriptionStatus = null
-  const triggerProfileSubscribePaywall = () => {}
+  const { isSubscribed, currentPlan, subscriptionInfo } = useSubscriptionFeatures()
 
   const handleEditProfile = () => {
     router.push("/profile/edit")
   }
 
   const handleSubscribe = () => {
-    triggerProfileSubscribePaywall()
+    router.push("/subscription-test")
   }
 
   const getDisplayName = () => {
@@ -142,7 +139,7 @@ export default function ProfileScreen() {
               <View className="rounded-lg bg-card p-4">
                 <View className="mb-3 flex-row items-center justify-between">
                   <Text variant="title2" className="text-foreground">
-                    {isSubscribed ? "Poketrade Pro" : "Free Plan"}
+                    {isSubscribed ? `Poketrade ${currentPlan.charAt(0).toUpperCase() + currentPlan.slice(1)}` : "Free Plan"}
                   </Text>
                   <View className={`rounded-full px-2 py-1 ${isSubscribed ? "bg-green-100" : "bg-gray-100"}`}>
                     <Text className={`font-medium text-xs ${isSubscribed ? "text-green-700" : "text-gray-600"}`}>
@@ -159,19 +156,18 @@ export default function ProfileScreen() {
                 </Text>
                 
                 {!isSubscribed && (
-                  <Button onPress={handleSubscribe} className="w-full">
-                    <Text className="font-medium text-primary-foreground">
-                      Subscribe to Pro
-                    </Text>
-                  </Button>
+                  <PaywallButton
+                    title="Subscribe to Pro"
+                    className="w-full"
+                    presentationType="modal"
+                    onPurchaseComplete={() => {
+                      console.log('Subscription activated from profile screen');
+                    }}
+                  />
                 )}
                 
-                {isSubscribed && subscriptionStatus && (
-                  <View className="mt-2">
-                    <Text className="text-muted-foreground text-xs">
-                      Status: {subscriptionStatus.status}
-                    </Text>
-                  </View>
+                {isSubscribed && (
+                  <SubscriptionStatus showManagementButton={false} className="mt-2" />
                 )}
               </View>
             </View>

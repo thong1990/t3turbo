@@ -4,6 +4,7 @@ import { Text, View } from 'react-native';
 import Purchases from 'react-native-purchases';
 import RevenueCatUI from 'react-native-purchases-ui';
 import Constants from 'expo-constants';
+import { router } from 'expo-router';
 
 export default function WelcomeScreen() {
   const [lastResult, setLastResult] = useState<string>('No method called yet');
@@ -74,7 +75,11 @@ export default function WelcomeScreen() {
 
       {/* Methods */}
       <ScrollView style={styles.methodsContainer}>
-        
+      <MethodButton 
+          title="Go to home" 
+          onPress={() => router.push('/(tabs)/trade')} 
+        />
+
         {/* Configuration & Info */}
         <SectionHeader title="Configuration & Info" />
         <MethodButton 
