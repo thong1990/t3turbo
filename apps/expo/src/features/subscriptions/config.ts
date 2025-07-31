@@ -56,7 +56,6 @@ export const REVENUECAT_CONFIG = {
   STORES: {
     APP_STORE: 'app_store',
     PLAY_STORE: 'play_store',
-    AMAZON: 'amazon',
     STRIPE: 'stripe',
   },
 

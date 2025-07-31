@@ -38,6 +38,10 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       projectId: "31694801-c6c1-48fe-9c16-4f6251283c42",
     },
   },
+  "react-native-google-mobile-ads": {
+    android_app_id: process.env.EXPO_PUBLIC_ADMOB_ANDROID_APP_ID,
+    ios_app_id: process.env.EXPO_PUBLIC_ADMOB_IOS_APP_ID,
+  },
   experiments: {
     tsconfigPaths: true,
     typedRoutes: true,

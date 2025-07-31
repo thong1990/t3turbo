@@ -5,6 +5,7 @@ import React from "react"
 import "react-native-reanimated"
 import * as Sentry from "@sentry/react-native"
 import Providers from "~/shared/components/providers"
+import { ErrorBoundary } from "~/shared/components/error-boundary"
 import { useAuthEffects } from "~/features/auth/hooks/use-auth-effects"
 import {
   useHideSplashScreen,
@@ -22,10 +23,15 @@ export const unstable_settings = {
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync()
 
-Sentry.init({
-  dsn: process.env.EXPO_PUBLIC_SENTRY_DSN,
-})
-Sentry.captureException(new Error("First error"))
+// Initialize Sentry only in production or development with proper DSN
+if (process.env.EXPO_PUBLIC_SENTRY_DSN && process.env.NODE_ENV !== 'test') {
+  Sentry.init({
+    dsn: process.env.EXPO_PUBLIC_SENTRY_DSN,
+    debug: __DEV__,
+    enableAutoSessionTracking: true,
+    sessionTrackingIntervalMillis: 10000,
+  })
+}
 
 function RootLayout() {
   useInitialAndroidBarSync()
@@ -35,9 +41,10 @@ function RootLayout() {
 
   
   return (
-    <Providers>
-      <AuthEffectsWrapper>
-        <Stack initialRouteName="welcome">
+    <ErrorBoundary>
+      <Providers>
+        <AuthEffectsWrapper>
+          <Stack initialRouteName="welcome">
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="welcome" options={{ headerShown: false }} />
         <Stack.Screen name="onboarding" options={{ headerShown: false }} />
@@ -70,9 +77,10 @@ function RootLayout() {
             headerShown: false,
           }}
         />
-        </Stack>
-      </AuthEffectsWrapper>
-    </Providers>
+          </Stack>
+        </AuthEffectsWrapper>
+      </Providers>
+    </ErrorBoundary>
   )
 }
 
