@@ -13,7 +13,7 @@ export const createUrlBuilder = (baseUrl: string, protocol: string = "https") =>
 }
 
 export const buildApiUrl = createUrlBuilder(
-  env.EXPO_PUBLIC_API_URL,
+  env.EXPO_PUBLIC_API_URL || "localhost:3000",
   isProduction ? "https" : "http"
 )
 

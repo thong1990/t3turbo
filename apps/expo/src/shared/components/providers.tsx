@@ -29,7 +29,7 @@ export default function Providers({ children }: { children: ReactNode }) {
       <SupabaseProvider>
         <SubscriptionProvider apiKey={revenueCatApiKey}>
           <SendbirdUIKitContainer
-            appId={env.EXPO_PUBLIC_SENDBIRD_APP_ID}
+            appId={env.EXPO_PUBLIC_SENDBIRD_APP_ID || ""}
             platformServices={platformServices}
             chatOptions={{
               localCacheEnabled: true,

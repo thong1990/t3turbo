@@ -6,11 +6,12 @@ export default createEnv({
     NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
   },
   client: {
-    EXPO_PUBLIC_API_URL: z.string(),
-    EXPO_PUBLIC_SUPABASE_URL: z.string(),
-    EXPO_PUBLIC_SUPABASE_ANON_KEY: z.string(),
-    EXPO_PUBLIC_SENDBIRD_APP_ID: z.string(),
-    EXPO_PUBLIC_SENDBIRD_API_TOKEN: z.string(),
+    EXPO_PUBLIC_API_URL: z.string().optional(),
+    EXPO_PUBLIC_SUPABASE_URL: z.string().optional(),
+    EXPO_PUBLIC_SUPABASE_ANON_KEY: z.string().optional(),
+    EXPO_PUBLIC_SENDBIRD_APP_ID: z.string().optional(),
+    EXPO_PUBLIC_SENDBIRD_API_URL: z.string().optional(),
+    EXPO_PUBLIC_SENDBIRD_API_TOKEN: z.string().optional(),
     EXPO_PUBLIC_REVENUECAT_API_KEY_IOS: z.string().optional(),
     EXPO_PUBLIC_REVENUECAT_API_KEY_ANDROID: z.string().optional(),
     // Sentry configuration

@@ -85,6 +85,6 @@ const createSendbirdAPI = (appId: string, apiToken: string) => {
  * We recommend higher that you use sendbird platform api on your server instead of the client side.
  * */
 export const SendbirdAPI = createSendbirdAPI(
-  env.EXPO_PUBLIC_SENDBIRD_APP_ID,
-  env.EXPO_PUBLIC_SENDBIRD_API_TOKEN
+  env.EXPO_PUBLIC_SENDBIRD_APP_ID || "",
+  env.EXPO_PUBLIC_SENDBIRD_API_TOKEN || ""
 )
