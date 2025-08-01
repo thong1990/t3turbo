@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@better-auth/expo": "1.2.12",
-    "@expo/metro-config": "^0.20.14",
+    "@expo/metro-config": "^0.20.17",
     "@gorhom/bottom-sheet": "^5.1.6",
     "@legendapp/list": "^1.0.15",
     "@react-native-async-storage/async-storage": "^2.1.2",
@@ -105,6 +105,7 @@
     "@babel/core": "^7.27.4",
     "@babel/preset-env": "^7.27.2",
     "@babel/runtime": "^7.27.4",
+    "@expo/config-plugins": "~10.1.2",
     "@types/babel__core": "^7.20.5",
     "@types/react": "^19.0.14",
     "eslint": "catalog:",

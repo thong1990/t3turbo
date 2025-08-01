@@ -59,16 +59,26 @@ export function SubscriptionProvider({
       
       // Set user ID if provided
       if (rcUserId || userId) {
-        await Purchases.logIn(rcUserId || userId!);
+        try {
+          await Purchases.logIn(rcUserId || userId!);
+        } catch (loginError) {
+          // Log login error but don't fail initialization
+          console.warn('RevenueCat: Failed to log in user, continuing with anonymous user:', loginError);
+        }
       }
 
       setIsConfigured(true);
       
       // Load initial data
-      await Promise.all([
-        loadCustomerInfo(),
-        loadOfferings()
-      ]);
+      try {
+        await Promise.all([
+          loadCustomerInfo(),
+          loadOfferings()
+        ]);
+      } catch (dataError) {
+        // Log data loading error but don't fail initialization
+        console.warn('RevenueCat: Failed to load initial data, will retry later:', dataError);
+      }
       
     } catch (err) {
       const error = err as Error;
@@ -226,8 +236,12 @@ export function SubscriptionProvider({
   useEffect(() => {
     if (apiKey) {
       configureRevenueCat();
+    } else {
+      // If no API key provided, skip initialization but don't error
+      setIsLoading(false);
+      console.warn('RevenueCat: No API key provided, subscription features will be disabled');
     }
-  }, [configureRevenueCat]);
+  }, [configureRevenueCat, apiKey]);
 
   // Handle user authentication changes
   useEffect(() => {
@@ -266,7 +280,10 @@ export function SubscriptionProvider({
     });
 
     return () => {
-      listener.remove();
+      // Safely remove listener only if it exists and has remove method
+      if (listener && typeof listener.remove === 'function') {
+        listener.remove();
+      }
     };
   }, [isConfigured]);
 
