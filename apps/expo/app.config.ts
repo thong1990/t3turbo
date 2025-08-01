@@ -13,7 +13,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   updates: {
     fallbackToCacheTimeout: 0,
   },
-  newArchEnabled: false, // Try to build with this enabled
+  // newArchEnabled: false, // Let React Native 0.79.5 use default New Architecture settings
   assetBundlePatterns: ["**/*"],
   ios: {
     bundleIdentifier: "com.futhong.poketradetcg",
