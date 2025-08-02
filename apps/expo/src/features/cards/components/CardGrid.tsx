@@ -9,6 +9,7 @@ interface CardGridProps {
   actions?: CardGridActions
   selectedCards?: string[]
   showQuantityManager?: boolean
+  showDeckQuantityManager?: boolean
   showTradeButtons?: boolean
   tabMode?: TradeMode
   refreshing?: boolean
@@ -22,6 +23,7 @@ export function CardGrid({
   actions = {},
   selectedCards = [],
   showQuantityManager = false,
+  showDeckQuantityManager = false,
   showTradeButtons = false,
   tabMode = "cards",
   refreshing = false,
@@ -29,44 +31,37 @@ export function CardGrid({
   onRemoveSuccess,
   onToggleSuccess,
 }: CardGridProps) {
-  const renderItem = useCallback(
-    ({ item: card }: { item: Card }) => {
-      return (
-        <CardItem
-          card={card}
-          selectedCards={selectedCards}
-          onSelectCard={actions.onSelectCard}
-          onNavigateToCard={actions.onNavigateToCard}
-          onPress={actions.onPress}
-          showQuantityManager={showQuantityManager}
-          showTradeButtons={showTradeButtons}
-          tabMode={tabMode}
-          onRemoveSuccess={onRemoveSuccess}
-          onToggleSuccess={onToggleSuccess}
-        />
-      )
-    },
-    [
-      selectedCards,
-      actions.onSelectCard,
-      actions.onNavigateToCard,
-      actions.onPress,
-      showQuantityManager,
-      showTradeButtons,
-      tabMode,
-      onRemoveSuccess,
-      onToggleSuccess,
-    ]
-  )
+  // Destructure actions to ensure stable references
+  const { onSelectCard, onNavigateToCard, onRemoveCard, onPress } = actions
+  
+  const renderItem = ({ item: card }: { item: Card }) => {
+    return (
+      <CardItem
+        card={card}
+        selectedCards={selectedCards}
+        onSelectCard={onSelectCard}
+        onNavigateToCard={onNavigateToCard}
+        onPress={onPress}
+        showQuantityManager={showQuantityManager}
+        showDeckQuantityManager={showDeckQuantityManager}
+        onRemoveCard={onRemoveCard}
+        showTradeButtons={showTradeButtons}
+        tabMode={tabMode}
+        onRemoveSuccess={onRemoveSuccess}
+        onToggleSuccess={onToggleSuccess}
+      />
+    )
+  }
 
   const keyExtractor = useCallback((card: Card) => card.id, [])
 
   const getItemType = useCallback(() => {
     // Optimize rendering based on content type
     if (showQuantityManager) return "quantityManager"
+    if (showDeckQuantityManager) return "deckQuantityManager"
     if (showTradeButtons) return "tradeButtons"
     return "basic"
-  }, [showQuantityManager, showTradeButtons])
+  }, [showQuantityManager, showDeckQuantityManager, showTradeButtons])
 
   return (
     <View className="flex-1">
@@ -76,12 +71,14 @@ export function CardGrid({
         keyExtractor={keyExtractor}
         getItemType={getItemType}
         numColumns={3}
-        estimatedItemSize={showQuantityManager || showTradeButtons ? 280 : 160}
+        estimatedItemSize={showQuantityManager || showDeckQuantityManager || showTradeButtons ? 280 : 160}
         contentContainerStyle={{
           paddingVertical: 12,
           paddingBottom: 100,
         }}
         keyboardShouldPersistTaps="handled"
+        // Force re-render when selectedCards changes
+        extraData={selectedCards}
         refreshControl={
           onRefresh ? (
             <RefreshControl

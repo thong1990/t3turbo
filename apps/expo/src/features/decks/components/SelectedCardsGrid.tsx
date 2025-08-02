@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { Text, View } from "react-native"
 import { CardItem } from "~/features/cards/components/CardItem"
 import type { Card } from "~/features/cards/types"
+import { getUniqueCardsWithCount } from "../utils/cardCounting"
 
 interface SelectedCardsGridProps {
   selectedCards: string[]
@@ -18,18 +19,9 @@ export function SelectedCardsGrid({
   // State to track grid size
   const [showExpandedGrid, setShowExpandedGrid] = useState(false)
 
-  // Get unique cards with their counts
-  const uniqueCardsWithCount = selectedCards.reduce(
-    (acc, cardId) => {
-      if (acc[cardId]) {
-        acc[cardId].count++
-      } else {
-        acc[cardId] = { count: 1, index: Object.keys(acc).length }
-      }
-      return acc
-    },
-    {} as Record<string, { count: number; index: number }>
-  )
+  // Get unique cards with their counts using shared utility
+  const uniqueCardsWithCount = getUniqueCardsWithCount(selectedCards)
+  
 
   // Unique card IDs (not counting duplicates)
   const uniqueCardIds = Object.keys(uniqueCardsWithCount)
@@ -80,37 +72,13 @@ export function SelectedCardsGrid({
   // Calculate total cells in grid
   const totalCells = layout.rows * layout.columnsPerRow
 
-  // Create an array representing all cells in the grid
-  const gridCells = Array.from({ length: totalCells }, (_, index) => {
-    const rowIndex = Math.floor(index / layout.columnsPerRow)
-    const colIndex = index % layout.columnsPerRow
-
-    // If we have a card for this position, use it
-    if (index < uniqueCardIds.length) {
-      const cardId = uniqueCardIds[index]
-      return {
-        rowIndex,
-        colIndex,
-        cardId,
-        empty: false,
-      }
-    }
-
-    // Otherwise this is an empty cell
-    return {
-      rowIndex,
-      colIndex,
-      empty: true,
-    }
-  })
-
   return (
     <View className="px-2 py-2">
-      <View className="flex flex-wrap gap-y-0.5">
+      <View className="flex flex-wrap gap-y-1">
         {rowIndices.map(rowIndex => (
           <View
             key={`selected-grid-row-${rowIndex}`}
-            className="w-full flex-row justify-between"
+            className="w-full flex-row justify-evenly"
           >
             {Array.from({ length: layout.columnsPerRow }, (_, colIndex) => {
               const position = rowIndex * layout.columnsPerRow + colIndex
@@ -125,9 +93,9 @@ export function SelectedCardsGrid({
               return (
                 <View
                   key={generateCellKey(rowIndex, colIndex, uniqueCardId)}
-                  className="relative px-0.5"
+                  className="relative"
                 >
-                  <View className="h-[80px] w-[70px] rounded bg-muted">
+                  <View className="h-[75px] w-[60px] rounded bg-muted">
                     {card ? (
                       <>
                         <CardItem

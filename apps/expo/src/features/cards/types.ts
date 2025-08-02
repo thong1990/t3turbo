@@ -38,6 +38,7 @@ export type TradeMode = "cards" | "give" | "want"
 export type CardGridActions = {
   onSelectCard?: (id: string) => void
   onNavigateToCard?: (id: string) => void
+  onRemoveCard?: (id: string) => void
   onPress?: () => void
 }
 

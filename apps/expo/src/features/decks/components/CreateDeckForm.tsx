@@ -1,12 +1,13 @@
 import { z } from "zod/v4"
 import * as Haptics from "expo-haptics"
 import { router, useLocalSearchParams } from "expo-router"
-import { useState } from "react"
+import { useState, useMemo, useCallback } from "react"
 import { ActivityIndicator, View } from "react-native"
 import { toast } from "sonner-native"
 import { CardGrid } from "~/features/cards/components/CardGrid"
 import { DECK_CONSTANTS } from "~/features/cards/constants"
 import { useCardsQuery } from "~/features/cards/queries"
+import { createDefaultFilters } from "~/features/cards/validation"
 import { useDeckCrud } from "~/features/decks/hooks"
 import { useUser } from "~/features/supabase/hooks"
 import { Button } from "~/shared/components/ui/button"
@@ -42,34 +43,33 @@ const deckCreateParams = z.object({
 
 export function CreateDeckForm() {
   const [selectedCards, setSelectedCards] = useState<string[]>([])
+  const [searchQuery, setSearchQuery] = useState("")
   const { data: user } = useUser()
   const { createDeck, isCreating } = useDeckCrud()
 
   const rawParams = useLocalSearchParams()
   const parsedParams = deckCreateParams.safeParse(rawParams)
   
-  // Log parsing results for debugging
+  // Handle parsing errors gracefully
   if (!parsedParams.success) {
-    console.error("CreateDeckForm - Failed to parse URL params:", {
-      rawParams,
-      errors: parsedParams.error.issues,
-      timestamp: new Date().toISOString()
-    })
+    console.warn("CreateDeckForm - URL params parsing failed, using defaults")
   }
   
+  // Use safe defaults from validation schema
   const parseResult = parsedParams.success
     ? parsedParams.data
     : deckCreateParams.parse({})
     
   const { search = "", ...filterData } = parseResult
   
-  // Ensure filters match CardFilters type structure
+  // Create safe filters with fallback to defaults
+  const defaultFilters = createDefaultFilters()
   const filters = {
-    cardType: filterData.cardType || [],
-    rarity: filterData.rarity || [],
-    elements: filterData.elements || [],
-    pack: filterData.pack || [],
-    userInteractions: filterData.userInteractions || [],
+    cardType: filterData?.cardType ?? defaultFilters.cardType,
+    rarity: filterData?.rarity ?? defaultFilters.rarity,
+    elements: filterData?.elements ?? defaultFilters.elements,
+    pack: filterData?.pack ?? defaultFilters.pack,
+    userInteractions: filterData?.userInteractions ?? defaultFilters.userInteractions,
   }
 
   const {
@@ -77,9 +77,15 @@ export function CreateDeckForm() {
     error: fetchError,
     isLoading: isLoadingCards,
     isError: isFetchError,
-  } = useCardsQuery({ filters, searchQuery: search, userId: user?.id })
+  } = useCardsQuery({ 
+    filters: filters || createDefaultFilters(), 
+    searchQuery: searchQuery, 
+    userId: user?.id 
+  })
 
-  const { data: allCardsForSelection = [] } = useCardsQuery({})
+  const { data: allCardsForSelection = [] } = useCardsQuery({ 
+    filters: createDefaultFilters() 
+  })
 
   const form = useAppForm({
     defaultValues: {
@@ -122,42 +128,63 @@ export function CreateDeckForm() {
     },
   })
 
-  const handleCardAdd = (cardId: string) => {
-    const cardCount = selectedCards.filter(id => id === cardId).length
-    if (cardCount >= MAX_COPIES || selectedCards.length >= MAX_CARDS) return
-    setSelectedCards(prev => [...prev, cardId])
-    Haptics.selectionAsync().catch(console.error)
-  }
-
-  const handleCardRemove = (cardId: string) => {
-    const index = selectedCards.indexOf(cardId)
-    if (index === -1) return
+  const handleCardAdd = useCallback((cardId: string) => {
     setSelectedCards(prev => {
+      const cardCount = prev.filter(id => id === cardId).length
+      
+      // Check if adding this card would exceed limits
+      if (cardCount >= MAX_COPIES) {
+        toast.error(`Maximum ${MAX_COPIES} copies of this card allowed`)
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error)
+        return prev // Return unchanged state
+      }
+      
+      if (prev.length >= MAX_CARDS) {
+        toast.error(`Deck is full! Maximum ${MAX_CARDS} cards allowed`)
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error)
+        return prev // Return unchanged state
+      }
+      
+      const newCards = [...prev, cardId]
+      Haptics.selectionAsync().catch(console.error)
+      return newCards
+    })
+  }, [])
+
+  const handleCardRemove = useCallback((cardId: string) => {
+    setSelectedCards(prev => {
+      const index = prev.indexOf(cardId)
+      if (index === -1) return prev
       const newCards = [...prev]
       newCards.splice(index, 1)
       return newCards
     })
     Haptics.selectionAsync().catch(console.error)
-  }
+  }, [])
 
   const activeFilterCount = Object.values(filters).filter(
     f => f.length > 0
   ).length
 
-  const setSearchQuery = (search: string) => {
-    router.setParams({ ...rawParams, search: search || undefined })
+  const handleSearchChange = (search: string) => {
+    setSearchQuery(search)
   }
 
   const handleFilterPress = () => {
     router.push({
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      pathname: "/(tabs)/cards/filters" as any,
+      pathname: "/(modal)/card-filters",
       params: rawParams,
     })
   }
 
   const progress = selectedCards.length / MAX_CARDS
   const isComplete = selectedCards.length === MAX_CARDS
+
+  // Memoize actions to prevent unnecessary re-renders
+  const cardGridActions = useMemo(() => ({
+    onSelectCard: handleCardAdd,
+    onRemoveCard: handleCardRemove,
+  }), [handleCardAdd, handleCardRemove])
 
   return (
     <form.AppForm>
@@ -183,8 +210,8 @@ export function CreateDeckForm() {
         />
 
         <SearchBar
-          searchQuery={search}
-          onSearchQueryChange={setSearchQuery}
+          searchQuery={searchQuery}
+          onSearchQueryChange={handleSearchChange}
           placeholder="Search for cards to add"
           activeFiltersCount={activeFilterCount}
           onFilterPress={handleFilterPress}
@@ -205,7 +232,10 @@ export function CreateDeckForm() {
             <CardGrid
               cards={allCards}
               selectedCards={selectedCards}
-              onSelectCard={handleCardAdd}
+              showQuantityManager={false}
+              showDeckQuantityManager={true}
+              showTradeButtons={false}
+              actions={cardGridActions}
             />
           )}
         </View>
