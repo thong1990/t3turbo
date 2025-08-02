@@ -73,7 +73,7 @@ export const MESSAGES = {
 
 // Mock configuration
 export const MOCK_CONFIG = {
-  ENABLED: process.env.NODE_ENV === "development",
+  ENABLED: __DEV__,
   USER_PREFIX: "mock-user-",
   TRADE_PREFIX: "mock-trade-",
   CHANNEL_PREFIX: "mock-channel-",

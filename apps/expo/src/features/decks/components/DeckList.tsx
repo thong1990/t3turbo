@@ -36,11 +36,19 @@ export function DeckList({
   }
 
   if (error) {
+    // Log error details for debugging
+    console.error("DeckList Error:", {
+      error: error.message,
+      stack: error.stack,
+      name: error.name,
+      timestamp: new Date().toISOString()
+    })
+    
     return (
       <EmptyState
         icon="alert-circle-outline"
-        message="An error occurred"
-        description={error.message}
+        message="Failed to load decks"
+        description={`Error: ${error.message}. Check console for details.`}
       />
     )
   }

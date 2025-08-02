@@ -18,7 +18,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   ios: {
     bundleIdentifier: "com.futhong.poketradetcg",
     supportsTablet: true,
-    usesNonExemptEncryption: false,
     icon: {
       light: "./assets/icon-light.png",
       dark: "./assets/icon-dark.png",
@@ -31,7 +30,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       foregroundImage: "./assets/icon-light.png",
       backgroundColor: "#1F104A",
     },
-    edgeToEdgeEnabled: true,
+    // Removed edgeToEdgeEnabled to fix Safe Area View compatibility
   },
   extra: {
     eas: {

@@ -1,4 +1,4 @@
-import { z } from "zod"
+import { z } from "zod/v4"
 import * as Haptics from "expo-haptics"
 import { router, useLocalSearchParams } from "expo-router"
 import { useState } from "react"
@@ -18,9 +18,16 @@ import { SelectedCardsGrid } from "./SelectedCardsGrid"
 const { MAX_CARDS, MAX_COPIES } = DECK_CONSTANTS
 
 const stringToArray = z
-  .string()
+  .union([z.string(), z.array(z.string())])
   .optional()
-  .transform(val => val?.split(",").filter(Boolean) ?? [])
+  .transform(val => {
+    if (Array.isArray(val)) {
+      // If it's already an array, filter out empty values
+      return val.filter(Boolean)
+    }
+    // If it's a string, split by comma and filter out empty values
+    return val?.split(",").filter(Boolean) ?? []
+  })
 
 const deckEditParams = z.object({
   search: z.string().optional().default(""),
@@ -46,9 +53,30 @@ export function EditDeckForm({ deck }: EditDeckFormProps) {
 
   const rawParams = useLocalSearchParams()
   const parsedParams = deckEditParams.safeParse(rawParams)
-  const { search, ...filters } = parsedParams.success
+  
+  // Log parsing results for debugging
+  if (!parsedParams.success) {
+    console.error("EditDeckForm - Failed to parse URL params:", {
+      rawParams,
+      errors: parsedParams.error.issues,
+      timestamp: new Date().toISOString()
+    })
+  }
+  
+  const parseResult = parsedParams.success
     ? parsedParams.data
     : deckEditParams.parse({})
+    
+  const { search = "", ...filterData } = parseResult
+  
+  // Ensure filters match CardFilters type structure
+  const filters = {
+    cardType: filterData.cardType || [],
+    rarity: filterData.rarity || [],
+    elements: filterData.elements || [],
+    pack: filterData.pack || [],
+    userInteractions: filterData.userInteractions || [],
+  }
 
   const {
     data: allCards,

@@ -3,6 +3,7 @@ import { Fragment } from "react"
 import { View } from "react-native"
 import { BannerAd } from "~/features/ads/components/BannerAd"
 import { cardUrlSearchParamsSchema } from "~/features/cards/validation"
+import { normalizeSearchParams } from "~/shared/utils"
 import { DeckList } from "~/features/decks/components/DeckList"
 import {
   useDecks,
@@ -25,8 +26,22 @@ import { Text } from "~/shared/components/ui/text"
 export default function DecksScreen() {
   const { data: user } = useUser()
   const rawParams = useLocalSearchParams()
+  
+  // Normalize params to handle array/string inconsistencies
+  const normalizedParams = normalizeSearchParams(rawParams)
 
-  const parsedParams = cardUrlSearchParamsSchema.safeParse(rawParams)
+  const parsedParams = cardUrlSearchParamsSchema.safeParse(normalizedParams)
+  
+  // Log parsing results for debugging
+  if (!parsedParams.success) {
+    console.error("DecksScreen - Failed to parse URL params:", {
+      rawParams,
+      normalizedParams,
+      errors: parsedParams.error.issues,
+      timestamp: new Date().toISOString()
+    })
+  }
+  
   const { search, ...filters } = parsedParams.success
     ? parsedParams.data
     : cardUrlSearchParamsSchema.parse({})

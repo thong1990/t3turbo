@@ -12,6 +12,16 @@ import { Platform } from "react-native"
 import { COLORS } from "~/shared/theme/colors"
 import env from "./env"
 
+// Export adaptive tab bar hooks
+export { 
+  useAdaptiveTabBar, 
+  useModernTabBar,
+  useCleanTabBar, 
+  useTabBarDebugInfo,
+  type CleanTabBarStyle,
+  type CleanTabBarMetrics 
+} from "./hooks/use-adaptive-tab-bar"
+
 export function useColorScheme() {
   const { colorScheme, setColorScheme: setNativeWindColorScheme } =
     useNativewindColorScheme()

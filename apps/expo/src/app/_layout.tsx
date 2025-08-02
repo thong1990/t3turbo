@@ -24,7 +24,7 @@ export const unstable_settings = {
 SplashScreen.preventAutoHideAsync()
 
 // Initialize Sentry only in production or development with proper DSN
-if (process.env.EXPO_PUBLIC_SENTRY_DSN && process.env.NODE_ENV !== 'test') {
+if (process.env.EXPO_PUBLIC_SENTRY_DSN && __DEV__ === false) {
   Sentry.init({
     dsn: process.env.EXPO_PUBLIC_SENTRY_DSN,
     debug: __DEV__,

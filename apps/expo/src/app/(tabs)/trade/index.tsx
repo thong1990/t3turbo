@@ -78,7 +78,7 @@ export default function TradeScreen() {
           <View className="flex-1 gap-y-2 px-4 pt-4">
             <View className="flex-row items-center justify-center py-3">
               <Text className="text-center font-semibold text-2xl text-foreground">
-                PokeTradeLah
+                PokeTradeTCG
               </Text>
             </View>
 
@@ -133,7 +133,7 @@ export default function TradeScreen() {
         <View className="flex-1 gap-y-2 px-4 pt-4">
           <View className="flex-row items-center justify-center py-3">
             <Text className="text-center font-semibold text-2xl text-foreground">
-              PokeTradeLah
+              PokeTradeTCG
             </Text>
           </View>
           <EmptyState message="Something went wrong. Please try again." />

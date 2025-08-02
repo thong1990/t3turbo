@@ -1,7 +1,7 @@
 import env from "~/shared/env"
 
 // Environment utilities
-export const isProduction = env.NODE_ENV === "production"
+export const isProduction = env.EXPO_PUBLIC_NODE_ENV === "production" || __DEV__ === false
 
 // URL utilities
 export const createUrlBuilder = (baseUrl: string, protocol: string = "https") => {

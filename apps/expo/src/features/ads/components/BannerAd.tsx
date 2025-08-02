@@ -83,7 +83,7 @@ export function BannerAd({ placement, size, className = "" }: BannerAdProps) {
 
   // Show placeholder when AdMob is not available
   if (!isAdMobAvailable) {
-    if (process.env.NODE_ENV === "development") {
+    if (__DEV__) {
       return (
         <View
           className={`h-12 items-center justify-center bg-gray-100 ${className}`}
@@ -112,7 +112,7 @@ export function BannerAd({ placement, size, className = "" }: BannerAdProps) {
       <View className={`h-12 items-center justify-center ${className}`}>
         {isLoading && <ActivityIndicator size="small" color="#666" />}
 
-        {error && process.env.NODE_ENV === "development" && (
+        {error && __DEV__ && (
           <View className="items-center justify-center">
             <Text style={{ fontSize: 10, color: "#999" }}>
               Ad failed to load
@@ -147,7 +147,7 @@ export function BannerAd({ placement, size, className = "" }: BannerAdProps) {
     )
   } catch (error) {
     // Silently fail in production, show placeholder in development
-    if (process.env.NODE_ENV === "development") {
+    if (__DEV__) {
       return (
         <View
           className={`h-12 items-center justify-center bg-red-50 ${className}`}
