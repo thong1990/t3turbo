@@ -1,7 +1,7 @@
 import { z } from "zod/v4"
 import * as Haptics from "expo-haptics"
 import { router, useLocalSearchParams } from "expo-router"
-import { useState, useMemo, useCallback, useEffect } from "react"
+import { useState, useMemo, useCallback, useEffect, useRef } from "react"
 import { ActivityIndicator, View } from "react-native"
 import { toast } from "sonner-native"
 import { CardGrid } from "~/features/cards/components/CardGrid"
@@ -39,10 +39,10 @@ const deckCreateParams = z.object({
   rarity: stringToArray.default([]),
   elements: stringToArray.default([]),
   pack: stringToArray.default([]),
+  selectedCards: stringToArray.default([]),
 })
 
 export function CreateDeckForm() {
-  const [selectedCards, setSelectedCards] = useState<string[]>([])
   const { data: user } = useUser()
   const { createDeck, isCreating } = useDeckCrud()
 
@@ -59,7 +59,10 @@ export function CreateDeckForm() {
     ? parsedParams.data
     : deckCreateParams.parse({})
     
-  const { search = "", ...filterData } = parseResult
+  const { search = "", selectedCards: urlSelectedCards = [], ...filterData } = parseResult
+  
+  // Initialize selected cards with URL parameter value
+  const [selectedCards, setSelectedCards] = useState<string[]>(urlSelectedCards)
   
   // Use URL search parameter as source of truth for search query
   const [searchQuery, setSearchQuery] = useState(search)
@@ -183,6 +186,7 @@ export function CreateDeckForm() {
       params: {
         ...rawParams,
         returnTo: "/(tabs)/decks/create",
+        selectedCards: selectedCards.join(","),
       },
     })
   }

@@ -1,6 +1,7 @@
 import { router, useLocalSearchParams } from "expo-router"
 import { Fragment } from "react"
 import { View } from "react-native"
+import * as Haptics from "expo-haptics"
 import { BannerAd } from "~/features/ads/components/BannerAd"
 import { cardUrlSearchParamsSchema } from "~/features/cards/validation"
 import { normalizeSearchParams } from "~/shared/utils"
@@ -86,7 +87,12 @@ export default function DecksScreen() {
   })
 
   const handleCreateDeck = () => {
-    router.push("/(tabs)/decks/create")
+    // Add haptic feedback for better UX
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium).catch(console.error)
+    router.push({
+      pathname: "/(tabs)/decks/create",
+      params: { fromTab: activeTab }
+    })
   }
 
   const setSearchQuery = (search: string) => {
@@ -129,13 +135,30 @@ export default function DecksScreen() {
               </TabsTrigger>
             </TabsList>
 
-            <SearchBar
-              searchQuery={search}
-              onSearchQueryChange={setSearchQuery}
-              placeholder="Search decks or cards"
-              activeFiltersCount={activeFilterCount}
-              onFilterPress={handleFilterPress}
-            />
+            <View className="flex-row items-center gap-3">
+              <View className="flex-1">
+                <SearchBar
+                  searchQuery={search}
+                  onSearchQueryChange={setSearchQuery}
+                  placeholder="Search decks or cards"
+                  activeFiltersCount={activeFilterCount}
+                  onFilterPress={handleFilterPress}
+                />
+              </View>
+              <Button
+                className="flex-row items-center gap-2 px-4 py-3 bg-primary rounded-xl h-12"
+                onPress={handleCreateDeck}
+              >
+                <Ionicons
+                  name="add"
+                  size={20}
+                  className="text-primary-foreground"
+                />
+                <Text className="font-semibold text-primary-foreground">
+                  Create
+                </Text>
+              </Button>
+            </View>
 
             <TabsContent value="trend">
               <DeckList
@@ -183,23 +206,26 @@ export default function DecksScreen() {
                   description: hasSearchQuery
                     ? "Try a different search term or clear filters."
                     : "Start building your collection and share it with others.",
+                  action: !hasSearchQuery ? (
+                    <Button
+                      className="w-48 bg-primary"
+                      onPress={handleCreateDeck}
+                    >
+                      <Ionicons
+                        name="add"
+                        size={20}
+                        className="mr-2 text-primary-foreground"
+                      />
+                      <Text className="font-semibold text-primary-foreground">
+                        Create Deck
+                      </Text>
+                    </Button>
+                  ) : undefined,
                 }}
               />
             </TabsContent>
           </Tabs>
 
-          {activeTab === "my-decks" && (
-            <Button
-              className="absolute right-6 bottom-6 h-14 w-14 items-center justify-center rounded-full shadow-lg"
-              onPress={handleCreateDeck}
-            >
-              <Ionicons
-                name="add"
-                size={28}
-                className="text-primary-foreground"
-              />
-            </Button>
-          )}
         </View>
       </Container>
       <BannerAd placement="decks-bottom" />

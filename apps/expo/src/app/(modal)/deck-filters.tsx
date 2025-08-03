@@ -70,7 +70,7 @@ const filterSections: FilterSectionConfig[] = [
 export default function DeckFiltersScreen() {
   const params = useLocalSearchParams()
 
-  // Use URL params as source of truth instead of useState
+  // Use URL params as source of truth
   const filters = React.useMemo<Partial<CardFilters>>(() => {
     const parsed = cardUrlSearchParamsSchema.safeParse(params)
     return parsed.success ? parsed.data : {}
@@ -86,7 +86,7 @@ export default function DeckFiltersScreen() {
       ? currentValues.filter((v: string) => v !== value)
       : [...currentValues, value]
 
-    // Update URL params immediately for responsive UI
+    // Update URL params for immediate UI update
     const newParams: Record<string, string | undefined> = {
       ...Object.fromEntries(
         Object.entries(params).map(([k, v]) => [k, Array.isArray(v) ? v[0] : v])
@@ -119,6 +119,9 @@ export default function DeckFiltersScreen() {
       const value = filters[key] as string[]
       if (value && value.length > 0) {
         newParams[key] = value.join(",")
+      } else {
+        // Explicitly clear filters that have no values
+        newParams[key] = undefined
       }
     }
 

@@ -3,13 +3,14 @@ import { EmptyState } from "~/shared/components/ui/empty-state"
 import { DeckCard } from "./DeckCard"
 import { NativeAd } from "~/features/ads/components/NativeAd"
 import type { Deck } from "../types"
-import { Fragment, type ComponentProps } from "react"
+import { Fragment, type ComponentProps, type ReactNode } from "react"
 import type { Ionicons } from "~/shared/components/ui/icons"
 
 interface EmptyStateConfig {
   icon: ComponentProps<typeof Ionicons>["name"]
   message: string
   description?: string
+  action?: ReactNode
 }
 
 interface DeckListProps {
@@ -59,6 +60,7 @@ export function DeckList({
         icon={emptyState.icon}
         message={emptyState.message}
         description={emptyState.description}
+        action={emptyState.action}
       />
     )
   }

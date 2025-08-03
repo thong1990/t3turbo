@@ -22,7 +22,7 @@ const NAV_THEME = {
       card: COLORS.dark.grey6,
       notification: COLORS.dark.destructive,
       primary: COLORS.dark.primary,
-      text: COLORS.white,
+      text: COLORS.dark.foreground,
     },
   },
 } as const

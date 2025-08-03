@@ -29,7 +29,7 @@ export function ThemeToggle() {
           {colorScheme === "dark"
             ? ({ pressed }) => (
                 <View className={cn("px-0.5", pressed && "opacity-50")}>
-                  <Ionicons name="moon" color={COLORS.white} size={16} />
+                  <Ionicons name="moon" color={COLORS.dark.foreground} size={16} />
                 </View>
               )
             : ({ pressed }) => (

@@ -91,7 +91,7 @@ export default function ProfileScreen() {
                   <Ionicons
                     name="chevron-forward"
                     size={16}
-                    color={colorScheme === "dark" ? "#ffffff" : "#6b7280"}
+                    className="text-muted-foreground"
                   />
                 </View>
               </View>
@@ -141,8 +141,8 @@ export default function ProfileScreen() {
                   <Text variant="title2" className="text-foreground">
                     {isSubscribed ? `Poketrade ${currentPlan.charAt(0).toUpperCase() + currentPlan.slice(1)}` : "Free Plan"}
                   </Text>
-                  <View className={`rounded-full px-2 py-1 ${isSubscribed ? "bg-green-100" : "bg-gray-100"}`}>
-                    <Text className={`font-medium text-xs ${isSubscribed ? "text-green-700" : "text-gray-600"}`}>
+                  <View className={`rounded-full px-2 py-1 ${isSubscribed ? "bg-green-100 dark:bg-green-900/30" : "bg-muted"}`}>
+                    <Text className={`font-medium text-xs ${isSubscribed ? "text-green-700 dark:text-green-300" : "text-muted-foreground"}`}>
                       {isSubscribed ? "Active" : "Free"}
                     </Text>
                   </View>

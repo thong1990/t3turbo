@@ -60,7 +60,7 @@ const filterSections: FilterSectionConfig[] = [
 export default function TradeFiltersScreen() {
   const params = useLocalSearchParams()
 
-  // Use URL params as source of truth instead of useState
+  // Use URL params as source of truth
   const filters = React.useMemo<Partial<TradeFilters>>(() => {
     const parsed = tradeUrlSearchParamsSchema.safeParse(params)
     return parsed.success ? parsed.data : {}
@@ -76,7 +76,7 @@ export default function TradeFiltersScreen() {
       ? currentValues.filter((v: string) => v !== value)
       : [...currentValues, value]
 
-    // Update URL params immediately for responsive UI
+    // Update URL params for immediate UI update
     const newParams: Record<string, string | undefined> = {
       ...Object.fromEntries(
         Object.entries(params).map(([k, v]) => [k, Array.isArray(v) ? v[0] : v])
@@ -104,6 +104,9 @@ export default function TradeFiltersScreen() {
       const value = filters[key] as string[]
       if (value && value.length > 0) {
         newParams[key] = value.join(",")
+      } else {
+        // Explicitly clear filters that have no values
+        newParams[key] = undefined
       }
     }
 

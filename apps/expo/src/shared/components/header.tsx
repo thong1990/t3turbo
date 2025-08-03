@@ -18,6 +18,7 @@ type HeaderProps = {
   title?: string
   subtitle?: string // Optional subtitle (e.g. location, status)
   hasBackButton?: boolean // Show back button
+  onBackPress?: () => void // Custom back button handler
   actions?: HeaderAction[] // Right-side actions
   leftView?: React.ReactNode // Custom left slot (logo, avatar, etc.)
   rightView?: React.ReactNode // Custom right slot if not using actions
@@ -41,6 +42,7 @@ export function Header({
   title,
   subtitle,
   hasBackButton = false,
+  onBackPress,
   actions = [],
   leftView,
   rightView,
@@ -60,6 +62,13 @@ export function Header({
   centered = false,
 }: HeaderProps) {
   const handleBackPress = () => {
+    // Use custom back handler if provided
+    if (onBackPress) {
+      onBackPress()
+      return
+    }
+    
+    // Default back behavior
     if (router.canDismiss()) {
       router.dismiss()
     } else if (router.canGoBack()) {

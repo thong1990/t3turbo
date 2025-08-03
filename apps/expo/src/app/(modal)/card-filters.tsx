@@ -60,11 +60,14 @@ const filterSections: FilterSectionConfig[] = [
 export default function CardFiltersScreen() {
   const params = useLocalSearchParams()
 
-  // Use URL params as source of truth instead of useState
-  const filters = React.useMemo<Partial<CardFilters>>(() => {
+  // Use URL params as source of truth
+  const urlFilters = React.useMemo<Partial<CardFilters>>(() => {
     const parsed = cardUrlSearchParamsSchema.safeParse(params)
     return parsed.success ? parsed.data : {}
   }, [params])
+
+  // Use URL params as source of truth - keeping it simple to avoid infinite loops
+  const filters = urlFilters
 
   const handleToggle = React.useCallback((key: string, value: string) => {
     // Add haptic feedback for better UX
@@ -76,7 +79,7 @@ export default function CardFiltersScreen() {
       ? currentValues.filter((v: string) => v !== value)
       : [...currentValues, value]
 
-    // Update URL params immediately for responsive UI
+    // Update URL params for immediate UI update
     const newParams: Record<string, string | undefined> = {
       ...Object.fromEntries(
         Object.entries(params).map(([k, v]) => [k, Array.isArray(v) ? v[0] : v])
@@ -118,9 +121,19 @@ export default function CardFiltersScreen() {
       const value = filters[key] as string[]
       if (value && value.length > 0) {
         finalParams[key] = value.join(",")
+      } else {
+        // Explicitly clear filters that have no values
+        finalParams[key] = undefined
       }
     }
     
+    // For create deck page, preserve selected cards by including them in params
+    if (returnTo === "/(tabs)/decks/create" && targetParams.selectedCards) {
+      finalParams.selectedCards = Array.isArray(targetParams.selectedCards) 
+        ? targetParams.selectedCards[0] 
+        : targetParams.selectedCards
+    }
+
     // Navigate to the correct page with updated parameters
     router.replace({
       pathname: returnTo,
