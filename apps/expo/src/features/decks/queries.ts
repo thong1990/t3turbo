@@ -19,7 +19,10 @@ export function useDecksQuery(
           id,
           name,
           image_url,
-          type
+          card_type,
+          rarity,
+          type,
+          pack_type
         )
       )
     `)
@@ -72,11 +75,55 @@ export function useDeckQuery(deckId: string, enabled = true) {
   )
 }
 
-export function useUserDecksQuery(userId: string, enabled = true) {
-  return useQuery(
-    client
-      .from("decks")
-      .select(`
+export function useUserDecksQuery(
+  userId: string, 
+  filters?: { searchQuery?: string; cardFilters?: Filters },
+  enabled = true
+) {
+  const query = client
+    .from("decks")
+    .select(`
+      *,
+      user_profiles (
+        display_name
+      ),
+      deck_cards (
+        card_id,
+        quantity,
+        cards (
+          id,
+          name,
+          image_url,
+          card_type,
+          rarity,
+          type,
+          pack_type
+        )
+      )
+    `)
+    .eq("user_id", userId)
+
+  if (filters?.searchQuery) {
+    query.ilike("name", `%${filters.searchQuery}%`)
+  }
+
+  query.order("created_at", { ascending: false })
+
+  return useQuery(query, {
+    enabled: enabled && !!userId,
+  })
+}
+
+export function useFavoriteDecksQuery(
+  userId: string, 
+  filters?: { searchQuery?: string; cardFilters?: Filters },
+  enabled = true
+) {
+  const query = client
+    .from("user_deck_interactions")
+    .select(`
+      deck_id,
+      decks (
         *,
         user_profiles (
           display_name
@@ -91,45 +138,20 @@ export function useUserDecksQuery(userId: string, enabled = true) {
             type
           )
         )
-      `)
-      .eq("user_id", userId)
-      .order("created_at", { ascending: false }),
-    {
-      enabled: enabled && !!userId,
-    }
-  )
-}
+      )
+    `)
+    .eq("user_id", userId)
+    .eq("interaction_type", "favorite")
 
-export function useFavoriteDecksQuery(userId: string, enabled = true) {
-  return useQuery(
-    client
-      .from("user_deck_interactions")
-      .select(`
-        deck_id,
-        decks (
-          *,
-          user_profiles (
-            display_name
-          ),
-          deck_cards (
-            card_id,
-            quantity,
-            cards (
-              id,
-              name,
-              image_url,
-              type
-            )
-          )
-        )
-      `)
-      .eq("user_id", userId)
-      .eq("interaction_type", "favorite")
-      .order("created_at", { ascending: false }),
-    {
-      enabled: enabled && !!userId,
-    }
-  )
+  if (filters?.searchQuery) {
+    query.ilike("decks.name", `%${filters.searchQuery}%`)
+  }
+
+  query.order("created_at", { ascending: false })
+
+  return useQuery(query, {
+    enabled: enabled && !!userId,
+  })
 }
 
 export function useDeckInteractionStatusQuery(

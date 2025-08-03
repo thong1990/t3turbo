@@ -1,6 +1,7 @@
 import { Stack, router, useLocalSearchParams } from "expo-router"
 import * as React from "react"
 import { ScrollView, View } from "react-native"
+import * as Haptics from "expo-haptics"
 
 import {
   CARD_ELEMENTS,
@@ -23,16 +24,6 @@ import {
 import { Text } from "~/shared/components/ui/text"
 
 const filterSections: FilterSectionConfig[] = [
-  {
-    key: "userInteractions",
-    // title: "My Cards",
-    type: "toggle",
-    options: [
-      { value: "owned", label: "Owned" },
-      { value: "desired", label: "Wanted" },
-      { value: "tradable", label: "For Trade" },
-    ],
-  },
   {
     key: "rarity",
     title: "Rarity",
@@ -75,14 +66,17 @@ export default function CardFiltersScreen() {
     return parsed.success ? parsed.data : {}
   }, [params])
 
-  const handleToggle = (key: string, value: string) => {
+  const handleToggle = React.useCallback((key: string, value: string) => {
+    // Add haptic feedback for better UX
+    Haptics.selectionAsync().catch(console.error)
+    
     const filterKey = key as keyof CardFilters
     const currentValues = (filters[filterKey] as string[]) ?? []
     const newValues = currentValues.includes(value)
       ? currentValues.filter((v: string) => v !== value)
       : [...currentValues, value]
 
-    // Update URL params directly
+    // Update URL params immediately for responsive UI
     const newParams: Record<string, string | undefined> = {
       ...Object.fromEntries(
         Object.entries(params).map(([k, v]) => [k, Array.isArray(v) ? v[0] : v])
@@ -92,39 +86,69 @@ export default function CardFiltersScreen() {
     if (newValues.length > 0) {
       newParams[filterKey] = newValues.join(",")
     } else {
-      delete newParams[filterKey]
+      newParams[filterKey] = undefined
     }
 
     router.setParams(newParams)
-  }
+  }, [filters, params])
 
   const handleApply = () => {
-    const newParams: Record<string, string | undefined> = {}
-
-    if (params.search && typeof params.search === "string") {
-      newParams.search = params.search
+    // Get the return path from params, default to cards page
+    const returnTo = typeof params.returnTo === "string" ? params.returnTo : "/(tabs)/cards"
+    
+    // Prepare parameters for the target page (exclude returnTo)
+    const { returnTo: _, ...targetParams } = params
+    
+    // Build the final parameters object
+    const finalParams: Record<string, string | undefined> = {}
+    
+    // Add search parameter if it exists
+    if (targetParams.search && typeof targetParams.search === "string") {
+      finalParams.search = targetParams.search
     }
-
+    
+    // Preserve tab state to prevent jumping between tabs
+    if (targetParams.tab && typeof targetParams.tab === "string") {
+      finalParams.tab = targetParams.tab
+    }
+    
+    // Add filter parameters based on current filter state
     for (const section of filterSections) {
       const key = section.key as keyof CardFilters
       const value = filters[key] as string[]
       if (value && value.length > 0) {
-        newParams[key] = value.join(",")
+        finalParams[key] = value.join(",")
       }
     }
-
+    
+    // Navigate to the correct page with updated parameters
     router.replace({
-      pathname: "/(tabs)/cards",
-      params: newParams,
+      pathname: returnTo,
+      params: finalParams,
     })
   }
 
   const handleClear = () => {
-    // Clear all filter params from URL
+    // Add haptic feedback for clear action
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(console.error)
+    
+    // Build params object that explicitly clears all filter keys
     const newParams: Record<string, string | undefined> = {}
 
+    // Preserve essential navigation parameters
     if (params.search && typeof params.search === "string") {
       newParams.search = params.search
+    }
+    if (params.returnTo && typeof params.returnTo === "string") {
+      newParams.returnTo = params.returnTo
+    }
+    if (params.tab && typeof params.tab === "string") {
+      newParams.tab = params.tab
+    }
+
+    // Explicitly clear all filter section parameters by setting to undefined
+    for (const section of filterSections) {
+      newParams[section.key] = undefined
     }
 
     router.setParams(newParams)

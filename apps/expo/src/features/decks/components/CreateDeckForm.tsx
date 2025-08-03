@@ -1,7 +1,7 @@
 import { z } from "zod/v4"
 import * as Haptics from "expo-haptics"
 import { router, useLocalSearchParams } from "expo-router"
-import { useState, useMemo, useCallback } from "react"
+import { useState, useMemo, useCallback, useEffect } from "react"
 import { ActivityIndicator, View } from "react-native"
 import { toast } from "sonner-native"
 import { CardGrid } from "~/features/cards/components/CardGrid"
@@ -43,7 +43,6 @@ const deckCreateParams = z.object({
 
 export function CreateDeckForm() {
   const [selectedCards, setSelectedCards] = useState<string[]>([])
-  const [searchQuery, setSearchQuery] = useState("")
   const { data: user } = useUser()
   const { createDeck, isCreating } = useDeckCrud()
 
@@ -61,6 +60,14 @@ export function CreateDeckForm() {
     : deckCreateParams.parse({})
     
   const { search = "", ...filterData } = parseResult
+  
+  // Use URL search parameter as source of truth for search query
+  const [searchQuery, setSearchQuery] = useState(search)
+  
+  // Sync search query with URL parameter when it changes
+  useEffect(() => {
+    setSearchQuery(search)
+  }, [search])
   
   // Create safe filters with fallback to defaults
   const defaultFilters = createDefaultFilters()
@@ -173,7 +180,10 @@ export function CreateDeckForm() {
   const handleFilterPress = () => {
     router.push({
       pathname: "/(modal)/card-filters",
-      params: rawParams,
+      params: {
+        ...rawParams,
+        returnTo: "/(tabs)/decks/create",
+      },
     })
   }
 

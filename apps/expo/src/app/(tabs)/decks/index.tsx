@@ -71,13 +71,19 @@ export default function DecksScreen() {
     data: myDecks = [],
     isLoading: isLoadingMy,
     error: myDecksError,
-  } = useUserDecks(user?.id ?? "")
+  } = useUserDecks(user?.id ?? "", {
+    ...(hasSearchQuery && { searchQuery: search }),
+    ...(hasActiveFilters && { cardFilters: filters }),
+  })
 
   const {
     data: favoriteDecks = [],
     isLoading: isLoadingFavorites,
     error: favoriteDecksError,
-  } = useFavoriteDecks(user?.id || "")
+  } = useFavoriteDecks(user?.id || "", {
+    ...(hasSearchQuery && { searchQuery: search }),
+    ...(hasActiveFilters && { cardFilters: filters }),
+  })
 
   const handleCreateDeck = () => {
     router.push("/(tabs)/decks/create")
@@ -90,7 +96,10 @@ export default function DecksScreen() {
   const handleFilterPress = () => {
     router.push({
       pathname: "/(modal)/card-filters",
-      params: rawParams,
+      params: {
+        ...rawParams,
+        returnTo: "/(tabs)/decks",
+      },
     })
   }
 

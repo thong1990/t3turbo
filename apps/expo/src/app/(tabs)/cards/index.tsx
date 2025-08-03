@@ -58,7 +58,10 @@ export default function CardsScreen() {
   const handleFilterPress = () => {
     router.push({
       pathname: "/(modal)/card-filters",
-      params: rawParams,
+      params: {
+        ...rawParams,
+        returnTo: "/(tabs)/cards",
+      },
     })
   }
 

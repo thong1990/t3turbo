@@ -1,6 +1,7 @@
 import { Stack, router, useLocalSearchParams } from "expo-router"
 import * as React from "react"
 import { ScrollView, View } from "react-native"
+import * as Haptics from "expo-haptics"
 
 import {
   CARD_ELEMENTS,
@@ -75,14 +76,17 @@ export default function DeckFiltersScreen() {
     return parsed.success ? parsed.data : {}
   }, [params])
 
-  const handleToggle = (key: string, value: string) => {
+  const handleToggle = React.useCallback((key: string, value: string) => {
+    // Add haptic feedback for better UX
+    Haptics.selectionAsync().catch(console.error)
+    
     const filterKey = key as keyof CardFilters
     const currentValues = (filters[filterKey] as string[]) ?? []
     const newValues = currentValues.includes(value)
       ? currentValues.filter((v: string) => v !== value)
       : [...currentValues, value]
 
-    // Update URL params directly
+    // Update URL params immediately for responsive UI
     const newParams: Record<string, string | undefined> = {
       ...Object.fromEntries(
         Object.entries(params).map(([k, v]) => [k, Array.isArray(v) ? v[0] : v])
@@ -92,17 +96,22 @@ export default function DeckFiltersScreen() {
     if (newValues.length > 0) {
       newParams[filterKey] = newValues.join(",")
     } else {
-      delete newParams[filterKey]
+      newParams[filterKey] = undefined
     }
 
     router.setParams(newParams)
-  }
+  }, [filters, params])
 
   const handleApply = () => {
     const newParams: Record<string, string | undefined> = {}
 
     if (params.search && typeof params.search === "string") {
       newParams.search = params.search
+    }
+
+    // Preserve tab state to prevent jumping between tabs
+    if (params.tab && typeof params.tab === "string") {
+      newParams.tab = params.tab
     }
 
     for (const section of filterSections) {
@@ -120,11 +129,26 @@ export default function DeckFiltersScreen() {
   }
 
   const handleClear = () => {
-    // Clear all filter params from URL
+    // Add haptic feedback for clear action
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(console.error)
+    
+    // Build params object that explicitly clears all filter keys
     const newParams: Record<string, string | undefined> = {}
 
+    // Preserve essential navigation parameters
     if (params.search && typeof params.search === "string") {
       newParams.search = params.search
+    }
+    if (params.returnTo && typeof params.returnTo === "string") {
+      newParams.returnTo = params.returnTo
+    }
+    if (params.tab && typeof params.tab === "string") {
+      newParams.tab = params.tab
+    }
+
+    // Explicitly clear all filter section parameters by setting to undefined
+    for (const section of filterSections) {
+      newParams[section.key] = undefined
     }
 
     router.setParams(newParams)

@@ -22,18 +22,15 @@ export default function DecksLayout() {
       <Stack.Screen
         name="create"
         options={{
-          presentation: "fullScreenModal",
           headerShown: false,
-          // title: "Create Deck",
-          // header: () => <Header title="Create Deck" hasBackButton />,
+          title: "Create Deck",
         }}
       />
       <Stack.Screen
         name="edit"
         options={{
-          presentation: "fullScreenModal",
+          headerShown: false,
           title: "Edit Deck",
-          header: () => <Header title="Edit Deck" hasBackButton />,
         }}
       />
       <Stack.Screen
