@@ -79,6 +79,10 @@ export default function WelcomeScreen() {
           title="Go to home" 
           onPress={() => router.push('/(tabs)/trade')} 
         />
+        <MethodButton 
+          title="Go to Subscription Test Screen" 
+          onPress={() => router.push('/subscription-test')} 
+        />
 
         {/* Configuration & Info */}
         <SectionHeader title="Configuration & Info" />
