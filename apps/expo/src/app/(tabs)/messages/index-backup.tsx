@@ -67,6 +67,8 @@ export default function MessagesScreen() {
         }
 
         const channel = channelsToProcess[i]
+        if (!channel) continue
+        
         let hasMatch = false
 
         // Check channel name
@@ -218,6 +220,8 @@ export default function MessagesScreen() {
               // Reset chat history for each channel
               for (let i = 0; i < channels.length; i++) {
                 const channel = channels[i]
+                if (!channel) continue
+                
                 try {
                   // Use SendBird's built-in reset history method
                   // This clears message history from user's view without leaving the channel

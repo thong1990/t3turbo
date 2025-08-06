@@ -5,7 +5,7 @@ import { ImageWithFallback } from "./image-with-fallback"
 import { Text } from "./text"
 import { Toggle } from "./toggle"
 
-export type FilterItemType = "text" | "image" | "toggle"
+export type FilterItemType = "text" | "image" | "toggle" | "complex"
 
 export interface FilterItem {
   value: string

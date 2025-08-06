@@ -43,29 +43,28 @@ export function useFavoriteDecks(
 
   return {
     ...query,
-    data: query.data?.map(interaction => {
-      if (!interaction.decks) return null
-      const { deck_cards, user_profiles, ...deckData } = interaction.decks
-      return {
-        ...deckData,
-        cards: (deck_cards || []).map(deckCard => ({
-          id: deckCard.card_id,
-          count: deckCard.quantity,
-          image: deckCard.cards?.image_url,
-          name: deckCard.cards?.name,
-          type: deckCard.cards?.type,
-          rarity: deckCard.cards?.rarity,
-          cardType: deckCard.cards?.card_type,
-        })),
-        author: user_profiles?.display_name || "Unknown",
-      }
-    }).filter(deck => {
-      if (!deck) return false
-      // Apply card filters if present
-      if (filters?.cardFilters) {
-        return deckMatchesCardFilters(deck, filters.cardFilters);
-      }
-      return true;
-    }),
+    data: query.data?.filter(interaction => interaction.decks !== null)
+      .map(interaction => {
+        const { deck_cards, user_profiles, ...deckData } = interaction.decks!
+        return {
+          ...deckData,
+          cards: (deck_cards || []).map(deckCard => ({
+            id: deckCard.card_id,
+            count: deckCard.quantity,
+            image: deckCard.cards?.image_url,
+            name: deckCard.cards?.name,
+            type: deckCard.cards?.type,
+            rarity: deckCard.cards?.rarity,
+            cardType: deckCard.cards?.card_type,
+          })),
+          author: user_profiles?.display_name || "Unknown",
+        }
+      }).filter(deck => {
+        // Apply card filters if present
+        if (filters?.cardFilters) {
+          return deckMatchesCardFilters(deck, filters.cardFilters);
+        }
+        return true;
+      }),
   }
 }

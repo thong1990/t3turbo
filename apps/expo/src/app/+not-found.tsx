@@ -13,10 +13,10 @@ export default function RootNotFoundScreen() {
         <View className="items-center gap-y-2">
           <Text variant="title1">This page doesn't exist</Text>
           <Text className="text-center">Page Not Found</Text>
-          <Text variant="caption1" className="text-center">
+          <Text variant="caption" className="text-center">
             The page you are looking for doesn't exist or has been moved.
           </Text>
-          <Text variant="caption1" className="text-center">
+          <Text variant="caption" className="text-center">
             {pathname}
           </Text>
         </View>

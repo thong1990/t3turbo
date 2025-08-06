@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { useDecksQuery } from "../queries"
 import type { DeckFilters, Filters } from "../types"
 
@@ -40,18 +41,39 @@ export function useDecks(
 
 // Hook for deck filtering UI - provides filter state management
 export function useDecksWithFilters() {
-  // Basic implementation for filter state management
-  // This would typically include useState for managing filter state
-  const filters = {
+  const [filters, setFiltersState] = useState({
     cardType: [] as string[],
     rarity: [] as string[],
     elements: [] as string[],
     pack: [] as string[],
+  })
+
+  const setFilters = (newFilters: typeof filters) => {
+    setFiltersState(newFilters)
   }
 
-  const setFilters = () => {}
-  const resetFilters = () => {}
-  const handleToggleItem = () => {}
+  const resetFilters = () => {
+    setFiltersState({
+      cardType: [],
+      rarity: [],
+      elements: [],
+      pack: [],
+    })
+  }
+
+  const handleToggleItem = (key: string, value: string) => {
+    setFiltersState(prev => {
+      const currentValues = prev[key as keyof typeof prev] || []
+      const isSelected = currentValues.includes(value)
+      
+      return {
+        ...prev,
+        [key]: isSelected
+          ? currentValues.filter(v => v !== value)
+          : [...currentValues, value]
+      }
+    })
+  }
 
   return {
     filters,

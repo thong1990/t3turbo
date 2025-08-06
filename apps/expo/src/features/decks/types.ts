@@ -55,7 +55,7 @@ export type UserDeckInteraction =
 
 // Add this filter interface
 export interface Filters {
-  name: string
+  name?: string
   cardType: string[]
   elements: string[]
   rarity: string[]

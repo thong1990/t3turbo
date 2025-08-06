@@ -61,6 +61,7 @@ export default function DeckFiltersScreen() {
       type: "image",
       options: CARD_ELEMENTS.map(element => ({
         value: element,
+        label: element,
         image: ELEMENT_IMAGES[element],
       })),
     },
@@ -70,6 +71,7 @@ export default function DeckFiltersScreen() {
       type: "complex",
       options: CARD_SETS.map(set => ({
         value: set,
+        label: SET_INFO[set].displayName,
         image: SET_INFO[set].image,
         displayName: SET_INFO[set].displayName,
       })),

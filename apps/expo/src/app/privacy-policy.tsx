@@ -41,7 +41,7 @@ export default function PrivacyPolicyScreen() {
               </View>
               <View className="flex-1">
                 <Text className="font-bold">{section.title}</Text>
-                <Text variant="footnote">{section.description}</Text>
+                <Text variant="caption">{section.description}</Text>
               </View>
             </View>
           ))}
@@ -53,10 +53,10 @@ export default function PrivacyPolicyScreen() {
               size={24}
               color={colors.primary}
             />
-            <Text variant="caption2" className="pt-1 text-center">
+            <Text variant="caption" className="pt-1 text-center">
               We are committed to protecting your privacy. Read our{" "}
               <Link href="/terms-of-service">
-                <Text variant="caption2" className="text-primary">
+                <Text variant="caption" className="text-primary">
                   Terms of Service
                 </Text>
               </Link>{" "}
