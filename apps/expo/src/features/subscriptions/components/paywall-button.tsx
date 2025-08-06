@@ -8,7 +8,7 @@ import { PaywallModal } from './paywall-modal';
 
 interface PaywallButtonProps {
   title?: string;
-  variant?: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link';
+  variant?: 'primary' | 'muted' | 'tonal' | 'outline' | 'ghost' | 'destructive' | 'link' | 'plain';
   className?: string;
   disabled?: boolean;
   options?: PaywallOptions;
@@ -19,7 +19,7 @@ interface PaywallButtonProps {
 
 export function PaywallButton({
   title = 'Upgrade',
-  variant = 'default',
+  variant = 'primary',
   className,
   disabled,
   options,

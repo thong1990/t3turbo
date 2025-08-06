@@ -85,7 +85,9 @@ export function EditDeckForm({ deck }: EditDeckFormProps) {
     isError: isFetchError,
   } = useCardsQuery({ filters, searchQuery: search })
 
-  const { data: allCardsForSelection = [] } = useCardsQuery({})
+  const { data: allCardsForSelection = [] } = useCardsQuery({ 
+    filters: { cardType: [], rarity: [], elements: [], pack: [], userInteractions: [] } 
+  })
 
   const form = useAppForm({
     defaultValues: {
@@ -114,6 +116,7 @@ export function EditDeckForm({ deck }: EditDeckFormProps) {
         await updateDeck({
           id: deck.id,
           ...value,
+          isPublic: value.isPublic ?? false,
           cards,
         })
 

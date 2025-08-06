@@ -157,7 +157,7 @@ export function AdaptiveSearchHeader(props: AdaptiveSearchHeaderProps) {
           <View className="flex-1 px-2">
             <Text
               numberOfLines={1}
-              variant="callout"
+              variant="subhead"
               className="font-normal android:text-muted-foreground"
             >
               {props.searchBar?.placeholder ?? "Search..."}

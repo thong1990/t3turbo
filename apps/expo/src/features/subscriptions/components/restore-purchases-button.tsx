@@ -8,8 +8,8 @@ interface RestorePurchasesButtonProps {
   onRestoreStart?: () => void;
   onRestoreComplete?: () => void;
   onRestoreError?: (error: Error) => void;
-  variant?: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link';
-  size?: 'default' | 'sm' | 'lg' | 'icon';
+  variant?: 'primary' | 'muted' | 'tonal' | 'outline' | 'ghost' | 'destructive' | 'link' | 'plain';
+  size?: 'none' | 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'icon';
   disabled?: boolean;
   showSuccessAlert?: boolean;
   showErrorAlert?: boolean;
@@ -22,7 +22,7 @@ export function RestorePurchasesButton({
   onRestoreComplete,
   onRestoreError,
   variant = 'outline',
-  size = 'default',
+  size = 'md',
   disabled = false,
   showSuccessAlert = true,
   showErrorAlert = true,
@@ -40,7 +40,7 @@ export function RestorePurchasesButton({
       onRestoreComplete?.();
       
       if (showSuccessAlert) {
-        const hasActiveSubscriptions = customerInfo.activeSubscriptions.length > 0;
+        const hasActiveSubscriptions = customerInfo?.activeSubscriptions?.length > 0;
         
         Alert.alert(
           'Restore Complete',

@@ -3,7 +3,6 @@ import { Fragment } from "react"
 import { ActivityIndicator, View } from "react-native"
 import { CardGrid } from "~/features/cards/components/CardGrid"
 import { useDeck } from "~/features/decks/hooks"
-import type { DeckCard } from "~/features/decks/types"
 import { Container } from "~/shared/components/container"
 import { Header } from "~/shared/components/header"
 import { EmptyState } from "~/shared/components/ui/empty-state"
@@ -48,9 +47,28 @@ export default function DeckDetailScreen() {
         <Header title={deck.name} hasBackButton />
         <View className="flex-1 px-4 py-4">
           <CardGrid
-            cards={deck.deck_cards.map((dc: DeckCard) => ({
-              ...dc.cards,
-              count: dc.quantity,
+            cards={deck.cards.map(card => ({
+              id: card.id,
+              name: card.name || "",
+              image_url: card.image,
+              type: card.type,
+              rarity: card.rarity,
+              card_type: card.cardType || "",
+              // Add all required Card properties from database.types.ts
+              card_id: card.id,
+              artist: null,
+              crafting_cost: null,
+              created_at: null,
+              evolution_type: null,
+              hp: null,
+              is_ex: null,
+              is_fullart: null,
+              pack_type: null,
+              retreat_cost: null,
+              set_id: null,
+              updated_at: null,
+              weakness: null,
+              count: card.count, // Add count for deck display
             }))}
           />
         </View>

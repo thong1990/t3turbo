@@ -10,8 +10,8 @@ interface PurchaseButtonProps {
   onPurchaseStart?: (packageItem: PurchasesPackage) => void;
   onPurchaseComplete?: (packageItem: PurchasesPackage) => void;
   onPurchaseError?: (error: Error, packageItem: PurchasesPackage) => void;
-  variant?: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link';
-  size?: 'default' | 'sm' | 'lg' | 'icon';
+  variant?: 'primary' | 'muted' | 'tonal' | 'outline' | 'ghost' | 'destructive' | 'link' | 'plain';
+  size?: 'none' | 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'icon';
   disabled?: boolean;
   children?: React.ReactNode;
   className?: string;
@@ -22,8 +22,8 @@ export function PurchaseButton({
   onPurchaseStart,
   onPurchaseComplete,
   onPurchaseError,
-  variant = 'default',
-  size = 'default',
+  variant = 'primary',
+  size = 'md',
   disabled = false,
   children,
   className

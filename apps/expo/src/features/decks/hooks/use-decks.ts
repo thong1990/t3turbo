@@ -19,17 +19,22 @@ export function useDecks(
 
   return {
     ...query,
-    data: query.data?.map(deck => ({
-      ...deck,
-      cards: (deck.deck_cards || []).map(deckCard => ({
-        id: deckCard.card_id,
-        count: deckCard.quantity,
-        image: deckCard.cards?.image_url,
-        name: deckCard.cards?.name,
-        type: deckCard.cards?.type,
-      })),
-      author: deck.user_profiles?.display_name || "Unknown",
-    })),
+    data: query.data?.map(deck => {
+      const { deck_cards, user_profiles, ...deckData } = deck
+      return {
+        ...deckData,
+        cards: (deck_cards || []).map(deckCard => ({
+          id: deckCard.card_id,
+          count: deckCard.quantity,
+          image: deckCard.cards?.image_url,
+          name: deckCard.cards?.name,
+          type: deckCard.cards?.type,
+          rarity: deckCard.cards?.rarity,
+          cardType: deckCard.cards?.card_type,
+        })),
+        author: user_profiles?.display_name || "Unknown",
+      }
+    }),
   }
 }
 

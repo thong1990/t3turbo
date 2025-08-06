@@ -429,7 +429,7 @@ function ListSectionHeaderComponent<T extends ListDataItem>(
       ref={ref}
     >
       <Text
-        variant={Platform.select({ ios: "footnote", default: "body" })}
+        variant={Platform.select({ ios: "caption", default: "body" })}
         className={cn("ios:text-muted-foreground ios:uppercase", textClassName)}
       >
         {item}

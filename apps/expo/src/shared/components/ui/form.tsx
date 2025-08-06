@@ -31,7 +31,7 @@ function FormSection({
     title: string
     titleClassName?: string
   }
-  materialIconProps?: { name: keyof typeof Ionicons.glyphMap }
+  materialIconProps?: { name: React.ComponentProps<typeof Ionicons>["name"] }
 }) {
   const { colors } = useColorScheme()
 
@@ -45,7 +45,7 @@ function FormSection({
     >
       {Platform.OS === "ios" && !!ios?.title && (
         <Text
-          variant="footnote"
+          variant="caption"
           className={cn(
             "pb-1 pl-3 text-muted-foreground uppercase",
             ios?.titleClassName
@@ -80,7 +80,7 @@ function FormSection({
               "ios:pt-1 pt-0.5 ios:pl-3 pl-3 text-muted-foreground",
               footnoteClassName
             )}
-            variant="footnote"
+            variant="caption"
           >
             {footnote}
           </Text>
