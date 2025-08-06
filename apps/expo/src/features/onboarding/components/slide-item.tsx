@@ -31,7 +31,7 @@ export const SlideItem: React.FC<Props> = props => {
 
   const source = useMemo(
     () =>
-      props.source || ONBOARDING_ITEMS[index % ONBOARDING_ITEMS.length].image,
+      props.source || ONBOARDING_ITEMS[index % ONBOARDING_ITEMS.length]?.image,
     [index, props.source]
   )
 

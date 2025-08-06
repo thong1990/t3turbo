@@ -25,7 +25,7 @@ export function useDeckCrud() {
     userId: string
     cards: CardInDeck[]
   }) => {
-    const { data: newDeck } = await insertDeckMutation.mutateAsync(
+    const newDeck = await insertDeckMutation.mutateAsync(
       {
         name: deckData.name,
         description: deckData.description,
@@ -48,7 +48,7 @@ export function useDeckCrud() {
 
     if (newDeck?.[0]?.id && deckData.cards.length > 0) {
       const deckCards = deckData.cards.map(card => ({
-        deck_id: newDeck[0].id,
+        deck_id: newDeck?.[0]?.id || "",
         card_id: card.id,
         quantity: card.count,
       }))

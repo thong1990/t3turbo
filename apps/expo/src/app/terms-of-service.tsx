@@ -41,7 +41,7 @@ export default function TermsOfServiceScreen() {
               </View>
               <View className="flex-1">
                 <Text className="font-bold">{section.title}</Text>
-                <Text variant="footnote">{section.description}</Text>
+                <Text variant="caption">{section.description}</Text>
               </View>
             </View>
           ))}
@@ -49,14 +49,14 @@ export default function TermsOfServiceScreen() {
         <View className="gap-4">
           <View className="items-center">
             <Ionicons name="document-text" size={24} color={colors.primary} />
-            <Text variant="caption2" className="pt-1 text-center">
+            <Text variant="caption" className="pt-1 text-center">
               By using PokeTrade, you agree to these{" "}
-              <Text variant="caption2" className="text-primary">
+              <Text variant="caption" className="text-primary">
                 Terms of Service
               </Text>{" "}
               and our{" "}
               <Link href="/privacy-policy">
-                <Text variant="caption2" className="text-primary">
+                <Text variant="caption" className="text-primary">
                   Privacy Policy
                 </Text>
               </Link>

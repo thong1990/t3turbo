@@ -5,6 +5,7 @@ import {
 } from "~/shared/components/ui/avatar"
 import { cn } from "@acme/ui"
 import { Ionicons } from "~/shared/components/ui/icons"
+import { useColorScheme } from "nativewind"
 
 interface UserAvatarProps {
   src?: string
@@ -19,7 +20,7 @@ interface UserAvatarProps {
 export const getInitials = (name?: string) => {
   if (!name) return ""
   const [firstName, lastName] = name.split(" ")
-  return firstName[0] + (lastName?.[0] ?? "")
+  return (firstName?.[0] ?? "") + (lastName?.[0] ?? "")
 }
 
 const getIconSize = (size?: number) => {
@@ -42,6 +43,7 @@ export const UserAvatar = ({
       style={{ width: size, height: size }}
     >
       <Avatar
+        alt={alt || "User avatar"}
         style={{
           width: size,
           height: size,
@@ -55,12 +57,12 @@ export const UserAvatar = ({
                   : radius === "sm"
                     ? 4
                     : 0,
-          backgroundColor: color,
+          backgroundColor: "#007AFF",
         }}
         className={cn(className)}
       >
         {src ? (
-          <AvatarImage source={{ uri: src }} alt={alt} />
+          <AvatarImage source={{ uri: src }} />
         ) : (
           <AvatarFallback>{getInitials(alt)}</AvatarFallback>
         )}
@@ -85,7 +87,7 @@ export const UserAvatar = ({
           )}
         >
           <Ionicons
-            name="robot-outline"
+            name="person-outline"
             className="text-accent-11 dark:text-accent-11"
             size={getIconSize(size)}
           />

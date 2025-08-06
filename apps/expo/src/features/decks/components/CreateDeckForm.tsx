@@ -223,7 +223,7 @@ export function CreateDeckForm() {
 
         <SelectedCardsGrid
           selectedCards={selectedCards}
-          cards={allCardsForSelection}
+          cards={allCardsForSelection || []}
           onSelectCard={handleCardRemove}
         />
 

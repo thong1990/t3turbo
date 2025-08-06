@@ -185,7 +185,7 @@ export function EditDeckForm({ deck }: EditDeckFormProps) {
 
         <SelectedCardsGrid
           selectedCards={selectedCards}
-          cards={allCardsForSelection}
+          cards={allCardsForSelection || []}
           onSelectCard={handleCardRemove}
         />
 

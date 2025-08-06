@@ -14,7 +14,7 @@ export function SocialLogin() {
   return (
     <View className="flex w-full justify-center gap-y-4">
       <Button
-        variant="secondary"
+        variant="muted"
         className="relative flex-row items-center px-4 py-2"
         onPress={() => handleSocialLogin("google")}
         style={{ paddingLeft: 48 }}
@@ -35,7 +35,7 @@ export function SocialLogin() {
         </View>
       </Button>
       <Button
-        variant="secondary"
+        variant="muted"
         className="relative flex-row items-center px-4 py-2"
         onPress={() => handleSocialLogin("facebook")}
         style={{ paddingLeft: 48 }}

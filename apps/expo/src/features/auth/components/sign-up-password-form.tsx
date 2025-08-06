@@ -6,7 +6,7 @@ import { useSignUpWithEmailAndPassword } from "~/features/supabase/hooks"
 import { signupSchema } from "../validation"
 import { toast } from "sonner-native"
 
-const FieldsSchema = signupSchema
+const FieldsSchema = signupSchema.innerType()
 
 export function SignUpPasswordForm() {
   const {

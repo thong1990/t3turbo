@@ -467,7 +467,7 @@ export default function ProfileScreen() {
                 
                 {user && (
                   <TouchableOpacity 
-                    onPress={signOut}
+                    onPress={() => signOut()}
                     className="flex-1 items-center rounded-2xl bg-card p-4 shadow-sm"
                   >
                     <View className="mb-2 h-12 w-12 items-center justify-center rounded-full bg-red-500/10">

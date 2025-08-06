@@ -148,7 +148,7 @@ export const MMKVStorage = {
     if (!storage) {
       // Fallback to AsyncStorage
       try {
-        return await AsyncStorage.getAllKeys()
+        return [...await AsyncStorage.getAllKeys()]
       } catch (error) {
         console.error('AsyncStorage getAllKeys error:', error)
         return []
@@ -198,7 +198,7 @@ export const MMKVStorage = {
     if (!storage) {
       // Fallback to AsyncStorage
       try {
-        return await AsyncStorage.multiGet(keys)
+        return [...await AsyncStorage.multiGet(keys)]
       } catch (error) {
         console.error('AsyncStorage multiGet error:', error)
         return keys.map(key => [key, null])

@@ -54,8 +54,8 @@ export function useFavoriteDecks(
             image: deckCard.cards?.image_url,
             name: deckCard.cards?.name,
             type: deckCard.cards?.type,
-            rarity: deckCard.cards?.rarity,
-            cardType: deckCard.cards?.card_type,
+            rarity: (deckCard.cards as any)?.rarity || null,
+            cardType: (deckCard.cards as any)?.card_type || null,
           })),
           author: user_profiles?.display_name || "Unknown",
         }

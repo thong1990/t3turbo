@@ -8,11 +8,11 @@ export interface UserProfile {
   avatar_url: string | null
   game_account_id: string | null
   game_account_ign: string | null
-  total_trades: number
-  successful_trades: number
-  failed_trades: number
-  created_at: string
-  updated_at: string
+  total_trades: number | null
+  successful_trades: number | null
+  failed_trades: number | null
+  created_at: string | null
+  updated_at: string | null
 }
 
 export interface UpdateProfileData {

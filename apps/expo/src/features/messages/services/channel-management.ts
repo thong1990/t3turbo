@@ -216,7 +216,7 @@ export async function ensureUserIsMember(
           .eq("sendbird_channel_url", channelUrl)
           .single()
 
-        if (tradeSession) {
+        if (tradeSession && tradeSession.initiator_id && tradeSession.receiver_id) {
           // Recreate the channel with both users as members
           const newChannelUrl = await recreateChannelWithMembers(
             tradeSession.id,

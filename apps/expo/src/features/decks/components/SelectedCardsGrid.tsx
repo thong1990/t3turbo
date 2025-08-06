@@ -100,7 +100,7 @@ export function SelectedCardsGrid({
                       <>
                         <CardItem
                           card={card}
-                          selectedCards={[uniqueCardId]}
+                          selectedCards={uniqueCardId ? [uniqueCardId] : []}
                           onSelectCard={onSelectCard}
                           isPreview={true}
                           onPress={() => handleRemoveCard(card.id)}
