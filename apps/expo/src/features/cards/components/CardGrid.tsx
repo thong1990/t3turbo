@@ -1,5 +1,4 @@
 import { FlashList } from "@shopify/flash-list"
-import { useCallback } from "react"
 import { RefreshControl, View } from "react-native"
 import type { Card, CardGridActions, TradeMode } from "../types"
 import { CardItem } from "./CardItem"
@@ -53,15 +52,15 @@ export function CardGrid({
     )
   }
 
-  const keyExtractor = useCallback((card: Card) => card.id, [])
+  const keyExtractor = (card: Card) => card.id
 
-  const getItemType = useCallback(() => {
+  const getItemType = () => {
     // Optimize rendering based on content type
     if (showQuantityManager) return "quantityManager"
     if (showDeckQuantityManager) return "deckQuantityManager"
     if (showTradeButtons) return "tradeButtons"
     return "basic"
-  }, [showQuantityManager, showDeckQuantityManager, showTradeButtons])
+  }
 
   return (
     <View className="flex-1">

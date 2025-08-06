@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react"
+import { useContext, useRef, useState } from "react"
 import { Pressable, TextInput, View } from "react-native"
 
 import {
@@ -19,17 +19,6 @@ export const MessageInput: GroupChannelModule['Input'] = () => {
     const [message, setMessage] = useState("")
     const inputRef = useRef<TextInput>(null)
 
-    // Cleanup on unmount
-    useEffect(() => {
-        return () => {
-            // Blur input and clear any pending state
-            if (inputRef.current) {
-                inputRef.current.blur()
-            }
-            setMessage("")
-        }
-    }, [])
-
     const sendMessage = async (text: string) => {
         if (!channel || !text.trim()) return
 
@@ -42,16 +31,6 @@ export const MessageInput: GroupChannelModule['Input'] = () => {
         } catch (error) {
             console.error("Failed to send message:", error)
         }
-    }
-
-    const handleSend = () => {
-        if (message.trim()) {
-            sendMessage(message)
-        }
-    }
-
-    const handleTemplateSelect = (template: string) => {
-        sendMessage(template)
     }
 
     return (
@@ -69,7 +48,7 @@ export const MessageInput: GroupChannelModule['Input'] = () => {
                             multiline={false}
                             textAlignVertical="center"
                             returnKeyType="send"
-                            onSubmitEditing={handleSend}
+                            onSubmitEditing={() => message.trim() && sendMessage(message)}
                             blurOnSubmit={false}
                             autoCorrect={true}
                             autoCapitalize="sentences"
@@ -83,10 +62,10 @@ export const MessageInput: GroupChannelModule['Input'] = () => {
                         />
                     </View>
 
-                    <MessageTemplates onTemplateSelect={handleTemplateSelect} />
+                    <MessageTemplates onTemplateSelect={sendMessage} />
 
                     <Pressable
-                        onPress={handleSend}
+                        onPress={() => message.trim() && sendMessage(message)}
                         disabled={!message.trim()}
                         className={`rounded-full border-2 p-2 shadow-sm ${message.trim()
                             ? "border-primary bg-primary"

@@ -136,7 +136,7 @@ export default function CardFiltersScreen() {
 
     // Navigate to the correct page with updated parameters
     router.replace({
-      pathname: returnTo,
+      pathname: returnTo as any, // Type assertion for dynamic routes
       params: finalParams,
     })
   }

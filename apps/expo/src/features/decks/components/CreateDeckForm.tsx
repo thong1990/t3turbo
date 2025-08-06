@@ -1,7 +1,7 @@
 import { z } from "zod/v4"
 import * as Haptics from "expo-haptics"
 import { router, useLocalSearchParams } from "expo-router"
-import { useState, useMemo, useCallback, useEffect, useRef } from "react"
+import { useMemo, useEffect } from "react"
 import { ActivityIndicator, View } from "react-native"
 import { toast } from "sonner-native"
 import { CardGrid } from "~/features/cards/components/CardGrid"
@@ -61,16 +61,9 @@ export function CreateDeckForm() {
     
   const { search = "", selectedCards: urlSelectedCards = [], ...filterData } = parseResult
   
-  // Initialize selected cards with URL parameter value
-  const [selectedCards, setSelectedCards] = useState<string[]>(urlSelectedCards)
-  
-  // Use URL search parameter as source of truth for search query
-  const [searchQuery, setSearchQuery] = useState(search)
-  
-  // Sync search query with URL parameter when it changes
-  useEffect(() => {
-    setSearchQuery(search)
-  }, [search])
+  // Use URL parameters as single source of truth
+  const selectedCards = urlSelectedCards
+  const searchQuery = search
   
   // Create safe filters with fallback to defaults
   const defaultFilters = createDefaultFilters()
@@ -138,46 +131,56 @@ export function CreateDeckForm() {
     },
   })
 
-  const handleCardAdd = useCallback((cardId: string) => {
-    setSelectedCards(prev => {
-      const cardCount = prev.filter(id => id === cardId).length
-      
-      // Check if adding this card would exceed limits
-      if (cardCount >= MAX_COPIES) {
-        toast.error(`Maximum ${MAX_COPIES} copies of this card allowed`)
-        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error)
-        return prev // Return unchanged state
-      }
-      
-      if (prev.length >= MAX_CARDS) {
-        toast.error(`Deck is full! Maximum ${MAX_CARDS} cards allowed`)
-        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error)
-        return prev // Return unchanged state
-      }
-      
-      const newCards = [...prev, cardId]
-      Haptics.selectionAsync().catch(console.error)
-      return newCards
-    })
-  }, [])
-
-  const handleCardRemove = useCallback((cardId: string) => {
-    setSelectedCards(prev => {
-      const index = prev.indexOf(cardId)
-      if (index === -1) return prev
-      const newCards = [...prev]
-      newCards.splice(index, 1)
-      return newCards
-    })
+  const handleCardAdd = (cardId: string) => {
+    const cardCount = selectedCards.filter(id => id === cardId).length
+    
+    // Check if adding this card would exceed limits
+    if (cardCount >= MAX_COPIES) {
+      toast.error(`Maximum ${MAX_COPIES} copies of this card allowed`)
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error)
+      return
+    }
+    
+    if (selectedCards.length >= MAX_CARDS) {
+      toast.error(`Deck is full! Maximum ${MAX_CARDS} cards allowed`)
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error)
+      return
+    }
+    
+    const newCards = [...selectedCards, cardId]
     Haptics.selectionAsync().catch(console.error)
-  }, [])
+    
+    // Update URL parameters
+    router.setParams({
+      ...rawParams,
+      selectedCards: newCards.join(",")
+    })
+  }
+
+  const handleCardRemove = (cardId: string) => {
+    const index = selectedCards.indexOf(cardId)
+    if (index === -1) return
+    
+    const newCards = [...selectedCards]
+    newCards.splice(index, 1)
+    Haptics.selectionAsync().catch(console.error)
+    
+    // Update URL parameters
+    router.setParams({
+      ...rawParams,
+      selectedCards: newCards.join(",") || undefined
+    })
+  }
 
   const activeFilterCount = Object.values(filters).filter(
     f => f.length > 0
   ).length
 
   const handleSearchChange = (search: string) => {
-    setSearchQuery(search)
+    router.setParams({
+      ...rawParams,
+      search: search || undefined
+    })
   }
 
   const handleFilterPress = () => {
@@ -194,11 +197,11 @@ export function CreateDeckForm() {
   const progress = selectedCards.length / MAX_CARDS
   const isComplete = selectedCards.length === MAX_CARDS
 
-  // Memoize actions to prevent unnecessary re-renders
-  const cardGridActions = useMemo(() => ({
+  // Create actions object - no memoization needed with URL state
+  const cardGridActions = {
     onSelectCard: handleCardAdd,
     onRemoveCard: handleCardRemove,
-  }), [handleCardAdd, handleCardRemove])
+  }
 
   return (
     <form.AppForm>

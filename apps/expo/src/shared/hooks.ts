@@ -2,15 +2,14 @@ import NetInfo from "@react-native-community/netinfo"
 import { onlineManager } from "@tanstack/react-query"
 import { useFonts } from "expo-font"
 import * as NavigationBar from "expo-navigation-bar"
-
 import * as Notifications from "expo-notifications"
 import { type Route, SplashScreen, router } from "expo-router"
 import { useColorScheme as useNativewindColorScheme } from "nativewind"
 import { useEffect, useState } from "react"
 import { Platform } from "react-native"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
 import { COLORS } from "~/shared/theme/colors"
-import env from "./env"
 
 // Export adaptive tab bar hooks
 export { 
@@ -25,9 +24,41 @@ export {
 export function useColorScheme() {
   const { colorScheme, setColorScheme: setNativeWindColorScheme } =
     useNativewindColorScheme()
+  const [hasInitialized, setHasInitialized] = useState(false)
+
+  // Initialize theme preference on first launch
+  useEffect(() => {
+    const initializeTheme = async () => {
+      try {
+        const storedTheme = await AsyncStorage.getItem('colorScheme')
+        
+        if (storedTheme === null) {
+          // First time user - default to light mode
+          setNativeWindColorScheme('light')
+          await AsyncStorage.setItem('colorScheme', 'light')
+        }
+        
+        setHasInitialized(true)
+      } catch (error) {
+        console.error('Failed to initialize theme:', error)
+        setNativeWindColorScheme('light')
+        setHasInitialized(true)
+      }
+    }
+    
+    initializeTheme()
+  }, [setNativeWindColorScheme])
 
   async function setColorScheme(colorScheme: "light" | "dark") {
     setNativeWindColorScheme(colorScheme)
+    
+    // Persist the theme preference
+    try {
+      await AsyncStorage.setItem('colorScheme', colorScheme)
+    } catch (error) {
+      console.error('Failed to save theme preference:', error)
+    }
+    
     if (Platform.OS !== "android") {
       return
     }
@@ -44,11 +75,11 @@ export function useColorScheme() {
   }
 
   return {
-    colorScheme: colorScheme ?? "light",
-    isDarkColorScheme: colorScheme === "dark",
+    colorScheme: hasInitialized ? (colorScheme ?? "light") : "light",
+    isDarkColorScheme: hasInitialized ? (colorScheme === "dark") : false,
     setColorScheme,
     toggleColorScheme,
-    colors: COLORS[colorScheme ?? "light"],
+    colors: COLORS[hasInitialized ? (colorScheme ?? "light") : "light"],
   }
 }
 

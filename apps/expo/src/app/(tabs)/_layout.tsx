@@ -1,7 +1,6 @@
 import { cn } from "@acme/ui"
 import { Tabs, useRouter, useSegments } from "expo-router"
 import type React from "react"
-import { useCallback } from "react"
 import { View } from "react-native"
 import { Ionicons } from "~/shared/components/ui/icons"
 import { NAVIGATION_THEME } from "~/shared/constants"
@@ -29,7 +28,7 @@ export default function TabLayout() {
   const activeTab = segments[1] || "trade"
   
   // Hide tab bar for message detail screens
-  const shouldHideTabBar = segments[1] === "messages" && segments[2] && segments[2] !== "index"
+  const shouldHideTabBar = segments[1] === "messages" && segments[2] && !segments[2].startsWith("index")
   
   // 🎨 Clean user-friendly tab bar attached to bottom
   const { tabBarStyle, metrics } = useCleanTabBar(Object.keys(TAB_ICONS).length)
@@ -41,10 +40,10 @@ export default function TabLayout() {
     label: config.label,
   }))
 
-  const handleTabPress = useCallback((tabName: string) => {
+  const handleTabPress = (tabName: string) => {
     // Use replace instead of push to prevent navigation stack buildup
-    router.replace(`/(tabs)/${tabName}`)
-  }, [router])
+    router.replace(`/(tabs)/${tabName}` as any)
+  }
 
   return (
     <>

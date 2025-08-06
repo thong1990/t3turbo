@@ -14,40 +14,48 @@ import { platformServices } from "~/features/messages/services"
 import { SubscriptionProvider } from "~/features/subscriptions"
 import { SupabaseProvider } from "~/features/supabase/components/supabase-provider"
 import { queryClient } from "~/shared/api"
+import { ErrorBoundary } from "~/shared/components/error-boundary"
 import ThemeProvider from "~/shared/components/theme-provider"
 import env from "~/shared/env"
 
-export default function Providers({ children }: { children: ReactNode }) {
+interface ProvidersProps {
+  children: ReactNode
+}
+
+export default function Providers({ children }: ProvidersProps) {
   return (
-    <QueryClientProvider client={queryClient}>
-      <SupabaseProvider>
-        <SubscriptionProvider >
-          <SendbirdUIKitContainer
-            appId={env.EXPO_PUBLIC_SENDBIRD_APP_ID}
-            platformServices={platformServices}
-            chatOptions={{
-              localCacheEnabled: true,
-              localCacheStorage: MMKVStorage, // Smart storage: MMKV in dev builds, AsyncStorage in Expo Go
-              enableAutoPushTokenRegistration: false,
-            }}
-          >
-            <SendbirdProvider>
-              {/* <KeyboardProvider statusBarTranslucent navigationBarTranslucent> */}
-              <ThemeProvider>
-                <GestureHandlerRootView style={{ flex: 1 }}>
-                  <SafeAreaProvider>
-                    <AppOpenAdProvider>
-                      <AdProvider>{children}</AdProvider>
-                    </AppOpenAdProvider>
-                    <Toaster duration={1000} position="bottom-center" />
-                  </SafeAreaProvider>
-                </GestureHandlerRootView>
-              </ThemeProvider>
-              {/* </KeyboardProvider> */}
-            </SendbirdProvider>
-          </SendbirdUIKitContainer>
-        </SubscriptionProvider>
-      </SupabaseProvider>
-    </QueryClientProvider>
+    <ErrorBoundary>
+      <QueryClientProvider client={queryClient}>
+        <SupabaseProvider>
+          <SubscriptionProvider>
+            <SendbirdUIKitContainer
+              appId={env.EXPO_PUBLIC_SENDBIRD_APP_ID || ''}
+              platformServices={platformServices}
+              chatOptions={{
+                localCacheEnabled: true,
+                localCacheStorage: MMKVStorage,
+                enableAutoPushTokenRegistration: false,
+              }}
+            >
+              <SendbirdProvider>
+                <ThemeProvider>
+                  <GestureHandlerRootView style={{ flex: 1 }}>
+                    <SafeAreaProvider>
+                      <AppOpenAdProvider>
+                        <AdProvider>{children}</AdProvider>
+                      </AppOpenAdProvider>
+                      <Toaster 
+                        duration={1000} 
+                        position="bottom-center"
+                      />
+                    </SafeAreaProvider>
+                  </GestureHandlerRootView>
+                </ThemeProvider>
+              </SendbirdProvider>
+            </SendbirdUIKitContainer>
+          </SubscriptionProvider>
+        </SupabaseProvider>
+      </QueryClientProvider>
+    </ErrorBoundary>
   )
 }
