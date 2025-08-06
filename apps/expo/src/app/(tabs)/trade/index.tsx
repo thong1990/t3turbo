@@ -72,6 +72,20 @@ export default function TradeScreen() {
       })
     }
 
+    if (isLoading || error) {
+      return (<>
+      <Container edges={["top"]}>
+        <View className="flex-1 gap-y-2 px-4 pt-4">
+          <View className="flex-row items-center justify-center py-3">
+            <Text className="text-center font-semibold text-2xl text-foreground">
+              PokeTradeTCG
+            </Text>
+          </View>
+          <EmptyState message="Something went wrong. Please try again." />
+        </View>
+      </Container></>)
+    }
+
     return (
       <>
         <Container edges={["top"]}>

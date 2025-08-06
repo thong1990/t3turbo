@@ -8,7 +8,8 @@ import type { SendbirdGroupChannel } from "@sendbird/uikit-utils"
 import { useQueryClient } from "@tanstack/react-query"
 import { router, useLocalSearchParams } from "expo-router"
 import { useEffect, useMemo, useState } from "react"
-import { Keyboard, KeyboardAvoidingView, Platform, SafeAreaView, ScrollView, View } from "react-native"
+import { Keyboard, KeyboardAvoidingView, Platform, ScrollView, View } from "react-native"
+import { Container } from "~/shared/components/container"
 import { ErrorBoundary } from "~/features/messages/components/ErrorBoundary"
 import { MessageInput } from "~/features/messages/components/MessageInput"
 import { MessageItem } from "~/features/messages/components/MessageItem/MessageItem"
@@ -244,12 +245,13 @@ function MessageDetailPageContent() {
   })
 
   return (
-    <SafeAreaView className="flex-1">
-      <KeyboardAvoidingView
-        className="flex-1"
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 0}
-      >
+    <Container edges={["top", "bottom", "left", "right"]}>
+      <View className="flex-1">
+        <KeyboardAvoidingView
+          className="flex-1"
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          keyboardVerticalOffset={Platform.OS === "ios" ? 60 : 0}
+        >
         {/* Custom Header with Search */}
         <MessageScreenHeader
           shouldHideRight={() => false}
@@ -306,7 +308,7 @@ function MessageDetailPageContent() {
                   }}
                   enableMessageGrouping
                   enableTypingIndicator
-                  keyboardAvoidOffset={0}
+                  keyboardAvoidOffset={Platform.OS === "ios" ? 0 : 20}
                   renderMessage={({ message }) => (
                     <MessageItem message={message} />
                   )}
@@ -315,8 +317,9 @@ function MessageDetailPageContent() {
             })()}
           </ErrorBoundary>
         </View>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+        </KeyboardAvoidingView>
+      </View>
+    </Container>
   )
 }
 

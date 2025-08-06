@@ -28,6 +28,9 @@ export default function TabLayout() {
   // Get current active tab from route segments
   const activeTab = segments[1] || "trade"
   
+  // Hide tab bar for message detail screens
+  const shouldHideTabBar = segments[1] === "messages" && segments[2] && segments[2] !== "index"
+  
   // 🎨 Clean user-friendly tab bar attached to bottom
   const { tabBarStyle, metrics } = useCleanTabBar(Object.keys(TAB_ICONS).length)
   
@@ -65,15 +68,17 @@ export default function TabLayout() {
         ))}
       </Tabs>
       
-      {/* Custom Clean Tab Bar */}
-      <ModernTabBar
-        tabs={tabsArray}
-        activeTab={activeTab}
-        onTabPress={handleTabPress}
-        style={tabBarStyle}
-        metrics={metrics}
-        isDarkMode={isDarkColorScheme}
-      />
+      {/* Custom Clean Tab Bar - Hidden on message detail screens */}
+      {!shouldHideTabBar && (
+        <ModernTabBar
+          tabs={tabsArray}
+          activeTab={activeTab}
+          onTabPress={handleTabPress}
+          style={tabBarStyle}
+          metrics={metrics}
+          isDarkMode={isDarkColorScheme}
+        />
+      )}
     </>
   )
 }

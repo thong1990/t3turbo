@@ -52,10 +52,11 @@ export default function ProfilePreferencesScreen() {
     <>
       <Stack.Screen
         options={{
-          header: () => <Header title="Preferences" hasBackButton />,
+          headerShown: false,
         }}
       />
       <Container className="px-4 py-4">
+        <Header title="Preferences" hasBackButton />
         <ListMenu>
           <ListMenuSection
             items={[

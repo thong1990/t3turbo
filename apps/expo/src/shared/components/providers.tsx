@@ -1,6 +1,5 @@
 import { QueryClientProvider } from "@tanstack/react-query"
 import type { ReactNode } from "react"
-import { Platform } from "react-native"
 import { GestureHandlerRootView } from "react-native-gesture-handler"
 import { SafeAreaProvider } from "react-native-safe-area-context"
 import { Toaster } from "sonner-native"
@@ -19,17 +18,12 @@ import ThemeProvider from "~/shared/components/theme-provider"
 import env from "~/shared/env"
 
 export default function Providers({ children }: { children: ReactNode }) {
-  // Get platform-specific RevenueCat API key
-  const revenueCatApiKey = Platform.OS === 'ios' 
-    ? env.EXPO_PUBLIC_REVENUECAT_API_KEY_IOS
-    : env.EXPO_PUBLIC_REVENUECAT_API_KEY_ANDROID;
-
   return (
     <QueryClientProvider client={queryClient}>
       <SupabaseProvider>
-        <SubscriptionProvider apiKey={revenueCatApiKey}>
+        <SubscriptionProvider >
           <SendbirdUIKitContainer
-            appId={env.EXPO_PUBLIC_SENDBIRD_APP_ID || ""}
+            appId={env.EXPO_PUBLIC_SENDBIRD_APP_ID}
             platformServices={platformServices}
             chatOptions={{
               localCacheEnabled: true,
