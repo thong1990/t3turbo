@@ -1,3 +1,4 @@
+import { memo } from "react"
 import { FlatList, RefreshControl } from "react-native"
 
 import type { TradeMatch } from "../types"
@@ -11,13 +12,13 @@ interface TradeMatchListProps {
   isRefreshing: boolean
 }
 
-export function TradeMatchList({
+export const TradeMatchList = memo<TradeMatchListProps>(function TradeMatchList({
   matches,
   onTrade,
   isCreatingTrade,
   onRefresh,
   isRefreshing,
-}: TradeMatchListProps) {
+}) {
   return (
     <FlatList
       data={matches}
@@ -34,4 +35,4 @@ export function TradeMatchList({
       }
     />
   )
-}
+})

@@ -1,4 +1,5 @@
 import { cn } from "@acme/ui"
+import { memo } from "react"
 import { Pressable, View } from "react-native"
 import { ImageWithFallback } from "~/shared/components/ui/image-with-fallback"
 import { Text } from "~/shared/components/ui/text"
@@ -26,7 +27,7 @@ type CardItemProps = {
   onToggleSuccess?: () => void
 }
 
-export const CardItem = function CardItem({
+export const CardItem = memo<CardItemProps>(function CardItem({
   card,
   selectedCards = [],
   onSelectCard,
@@ -127,4 +128,4 @@ export const CardItem = function CardItem({
       )}
     </View>
   )
-}
+})

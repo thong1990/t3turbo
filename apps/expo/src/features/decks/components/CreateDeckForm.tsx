@@ -3,6 +3,7 @@ import * as Haptics from "expo-haptics"
 import { router, useLocalSearchParams } from "expo-router"
 import { useMemo, useEffect } from "react"
 import { ActivityIndicator, View } from "react-native"
+import { isDefined, isNonEmptyString } from "~/shared/utils/type-guards"
 import { toast } from "sonner-native"
 import { CardGrid } from "~/features/cards/components/CardGrid"
 import { DECK_CONSTANTS } from "~/features/cards/constants"
@@ -68,11 +69,11 @@ export function CreateDeckForm() {
   // Create safe filters with fallback to defaults
   const defaultFilters = createDefaultFilters()
   const filters = {
-    cardType: filterData?.cardType ?? defaultFilters.cardType,
-    rarity: filterData?.rarity ?? defaultFilters.rarity,
-    elements: filterData?.elements ?? defaultFilters.elements,
-    pack: filterData?.pack ?? defaultFilters.pack,
-    userInteractions: filterData?.userInteractions ?? defaultFilters.userInteractions,
+    cardType: isDefined(filterData?.cardType) ? filterData.cardType : defaultFilters.cardType,
+    rarity: isDefined(filterData?.rarity) ? filterData.rarity : defaultFilters.rarity,
+    elements: isDefined(filterData?.elements) ? filterData.elements : defaultFilters.elements,
+    pack: isDefined(filterData?.pack) ? filterData.pack : defaultFilters.pack,
+    userInteractions: isDefined(filterData?.userInteractions) ? filterData.userInteractions : defaultFilters.userInteractions,
   }
 
   const {
@@ -101,7 +102,7 @@ export function CreateDeckForm() {
         toast.error(`Please select exactly ${MAX_CARDS} cards`)
         return
       }
-      if (!user?.id) {
+      if (!isDefined(user) || !isNonEmptyString(user.id)) {
         toast.error("You must be logged in to create a deck.")
         return
       }

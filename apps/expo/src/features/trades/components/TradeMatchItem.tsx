@@ -1,3 +1,4 @@
+import { memo } from "react"
 import { ActivityIndicator, Image, View } from "react-native"
 
 import { Button } from "~/shared/components/ui/button"
@@ -14,7 +15,7 @@ interface TradeMatchItemProps {
   isCreatingTrade?: boolean
 }
 
-function RarityDisplay({ rarity }: { rarity: TradeableRarity }) {
+const RarityDisplay = memo<{ rarity: TradeableRarity }>(function RarityDisplay({ rarity }) {
   const displayName = getRarityDisplayName(rarity)
   const isStarRarity = rarity === "☆"
   const bgColor = isStarRarity ? "bg-amber-100" : "bg-blue-100"
@@ -26,13 +27,13 @@ function RarityDisplay({ rarity }: { rarity: TradeableRarity }) {
       <Text className={`font-bold ${textColor}`}>{rarity}</Text>
     </View>
   )
-}
+})
 
-export function TradeMatchItem({
+export const TradeMatchItem = memo<TradeMatchItemProps>(function TradeMatchItem({
   match,
   onTrade,
   isCreatingTrade = false,
-}: TradeMatchItemProps) {
+}) {
   return (
     <View className="mb-4 rounded-2xl border border-border bg-card p-5">
       <View className="mb-4 flex-row items-center justify-between">
@@ -91,4 +92,4 @@ export function TradeMatchItem({
       </View>
     </View>
   )
-}
+})

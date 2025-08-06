@@ -1,10 +1,11 @@
 import { router, useLocalSearchParams } from "expo-router"
 import { memo, useMemo } from "react"
-import { ActivityIndicator, View } from "react-native"
+import { View } from "react-native"
 
 import { BannerAd } from "~/features/ads/components/BannerAd"
 import { useUser } from "~/features/supabase/hooks"
 import { TradeMatchList } from "~/features/trades/components/TradeMatchList"
+import { TradeListSkeleton } from "~/features/trades/components/TradeSkeleton"
 import { useTradeInteractions, useTradesQuery } from "~/features/trades/hooks"
 import { filterTradeMatches } from "~/features/trades/utils"
 import { tradeUrlSearchParamsSchema } from "~/features/trades/validation"
@@ -88,10 +89,7 @@ function TradeScreen() {
       <Container edges={["top"]}>
         <View className="flex-1 gap-y-2 px-4 pt-4">
           <TradeScreenHeader />
-          <View className="flex-1 items-center justify-center">
-            <ActivityIndicator size="large" />
-            <Text className="mt-2">Finding trade matches...</Text>
-          </View>
+          <TradeListSkeleton />
         </View>
       </Container>
     )

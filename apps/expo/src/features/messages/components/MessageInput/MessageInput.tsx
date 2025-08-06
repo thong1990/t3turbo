@@ -9,6 +9,7 @@ import {
 
 import { useUser } from "~/features/supabase/hooks"
 import { Ionicons } from "~/shared/components/ui/icons"
+import { handleError } from "~/shared/utils/error-handler"
 
 import { MessageTemplates } from "./MessageTemplates"
 
@@ -29,7 +30,10 @@ export const MessageInput: GroupChannelModule['Input'] = () => {
             await channel.sendUserMessage(params)
             setMessage("") // Clear the input after sending
         } catch (error) {
-            console.error("Failed to send message:", error)
+            handleError(error instanceof Error ? error : new Error(String(error)), {
+                action: 'send_message',
+                screen: 'MessageInput'
+            })
         }
     }
 

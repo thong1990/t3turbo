@@ -35,7 +35,6 @@ export default function WelcomeScreen() {
   };
 
   const callMethod = async (methodName: string, method: () => Promise<any>, params?: any) => {
-    console.log('Calling method....')
     try {
       setLastResult(`[${new Date().toLocaleTimeString()}] Calling ${methodName}...`);
       const result = await method();
@@ -353,13 +352,13 @@ export default function WelcomeScreen() {
           onPress={() => callMethod('presentCustomerCenter', () => RevenueCatUI.presentCustomerCenter({
             callbacks: {
               onFeedbackSurveyCompleted: ({ feedbackSurveyOptionId }) => {
-                console.log('Feedback survey completed:', feedbackSurveyOptionId);
+                // Feedback survey completed - handle silently
               },
               onShowingManageSubscriptions: () => {
-                console.log('Showing manage subscriptions');
+                // Manage subscriptions showing - handle silently
               },
               onRestoreCompleted: ({ customerInfo }) => {
-                console.log('Restore completed:', customerInfo);
+                // Restore completed successfully - handle silently
               },
               onRestoreFailed: ({ error }) => {
                 console.log('Restore failed:', error);
