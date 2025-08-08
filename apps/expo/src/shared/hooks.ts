@@ -22,22 +22,17 @@ export {
 } from "./hooks/use-adaptive-tab-bar"
 
 export function useColorScheme() {
-  const { colorScheme, setColorScheme: setNativeWindColorScheme } =
-    useNativewindColorScheme()
+  const { setColorScheme: setNativeWindColorScheme } = useNativewindColorScheme()
   const [hasInitialized, setHasInitialized] = useState(false)
 
-  // Initialize theme preference on first launch
+  // Force light theme always
   useEffect(() => {
     const initializeTheme = async () => {
       try {
-        const storedTheme = await AsyncStorage.getItem('colorScheme')
-        
-        if (storedTheme === null) {
-          // First time user - default to light mode
-          setNativeWindColorScheme('light')
-          await AsyncStorage.setItem('colorScheme', 'light')
-        }
-        
+        // Always set to light theme
+        setNativeWindColorScheme('light')
+        // Clear any stored theme preference
+        await AsyncStorage.removeItem('colorScheme')
         setHasInitialized(true)
       } catch (error) {
         console.error('Failed to initialize theme:', error)
@@ -49,37 +44,33 @@ export function useColorScheme() {
     initializeTheme()
   }, [setNativeWindColorScheme])
 
+  // Deprecated function - always keeps light theme
   async function setColorScheme(colorScheme: "light" | "dark") {
-    setNativeWindColorScheme(colorScheme)
-    
-    // Persist the theme preference
-    try {
-      await AsyncStorage.setItem('colorScheme', colorScheme)
-    } catch (error) {
-      console.error('Failed to save theme preference:', error)
-    }
+    // Force light theme regardless of input
+    setNativeWindColorScheme('light')
     
     if (Platform.OS !== "android") {
       return
     }
 
     try {
-      await setNavigationBar(colorScheme)
+      await setNavigationBar('light')
     } catch (error) {
       console.error('useColorScheme.tsx", "setColorScheme', error)
     }
   }
 
+  // Deprecated function - no longer toggles
   function toggleColorScheme() {
-    return setColorScheme(colorScheme === "light" ? "dark" : "light")
+    return setColorScheme('light')
   }
 
   return {
-    colorScheme: hasInitialized ? (colorScheme ?? "light") : "light",
-    isDarkColorScheme: hasInitialized ? (colorScheme === "dark") : false,
+    colorScheme: 'light',
+    isDarkColorScheme: false,
     setColorScheme,
     toggleColorScheme,
-    colors: COLORS[hasInitialized ? (colorScheme ?? "light") : "light"],
+    colors: COLORS.light,
   }
 }
 

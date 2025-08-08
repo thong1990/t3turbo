@@ -89,7 +89,6 @@ export default function WelcomeScreen() {
           title="getAppUserID" 
           onPress={() => callMethod('getAppUserID', () => Purchases.getAppUserID())} 
         />
-        />
         <MethodButton 
           title="isAnonymous" 
           onPress={() => callMethod('isAnonymous', () => Purchases.isAnonymous())} 

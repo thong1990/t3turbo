@@ -9,11 +9,9 @@ import {
   ListMenuSection,
 } from "~/shared/components/ui/list-menu"
 import { Switch } from "~/shared/components/ui/switch"
-import { useColorScheme } from "~/shared/hooks"
 import { toast } from "sonner-native"
 
 export default function ProfilePreferencesScreen() {
-  const { colorScheme, setColorScheme } = useColorScheme()
   const [pushNotifications, setPushNotifications] = useState(false)
 
   // Check current notification permission status
@@ -24,10 +22,6 @@ export default function ProfilePreferencesScreen() {
   const checkNotificationPermission = async () => {
     const { status } = await Notifications.getPermissionsAsync()
     setPushNotifications(status === 'granted')
-  }
-
-  const handleThemeToggle = (value: boolean) => {
-    setColorScheme(value ? "dark" : "light")
   }
 
   const handlePushNotificationToggle = async (value: boolean) => {
@@ -60,12 +54,6 @@ export default function ProfilePreferencesScreen() {
         <ListMenu>
           <ListMenuSection
             items={[
-              <ListMenuItem key="appearance" label="Dark Theme" showChevron={false}>
-                <Switch 
-                  isChecked={colorScheme === "dark"} 
-                  onCheckedChange={handleThemeToggle}
-                />
-              </ListMenuItem>,
               <ListMenuItem key="notifications" label="Push Notifications" showChevron={false}>
                 <Switch 
                   isChecked={pushNotifications} 

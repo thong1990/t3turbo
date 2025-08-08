@@ -27,6 +27,14 @@ export default function ProfileLayout() {
           header: () => <Header title="Preferences" hasBackButton />,
         }}
       />
+      <Stack.Screen
+        name="revenuecat-paywall"
+        options={{
+          presentation: "modal",
+          title: "Upgrade",
+          header: () => <Header title="Upgrade" hasBackButton />,
+        }}
+      />
     </Stack>
   )
 }

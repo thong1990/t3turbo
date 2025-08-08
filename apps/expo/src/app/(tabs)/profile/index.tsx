@@ -44,9 +44,9 @@ export default function ProfileScreen() {
     }
   }
 
-  const handleUpgrade = async () => {
-    // Navigate to direct paywall screen
-    router.push('/revenuecat-paywall');
+  const handleUpgrade = () => {
+    // Navigate to paywall screen
+    router.push('/profile/revenuecat-paywall')
   }
 
   const startInlineEdit = (field: string, currentValue: string) => {
