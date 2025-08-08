@@ -11,7 +11,7 @@ import { AdProvider } from "~/features/ads/components/AdProvider"
 import { AppOpenAdProvider } from "~/features/ads/components/AppOpenAd"
 import { SendbirdProvider } from "~/features/messages/providers/sendbird-provider"
 import { platformServices } from "~/features/messages/services"
-import { SubscriptionProvider } from "~/features/subscriptions"
+import { RevenueCatProvider } from "~/features/subscriptions/providers/revenuecat-provider"
 import { SupabaseProvider } from "~/features/supabase/components/supabase-provider"
 import { queryClient } from "~/shared/api"
 import { ErrorBoundary } from "~/shared/components/error-boundary"
@@ -27,9 +27,9 @@ export default function Providers({ children }: ProvidersProps) {
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
         <SupabaseProvider>
-          <SubscriptionProvider>
+          <RevenueCatProvider>
             <SendbirdUIKitContainer
-              appId={env.EXPO_PUBLIC_SENDBIRD_APP_ID || ''}
+              appId={env.EXPO_PUBLIC_SENDBIRD_APP_ID ?? ''}
               platformServices={platformServices}
               chatOptions={{
                 localCacheEnabled: true,
@@ -53,7 +53,7 @@ export default function Providers({ children }: ProvidersProps) {
                 </ThemeProvider>
               </SendbirdProvider>
             </SendbirdUIKitContainer>
-          </SubscriptionProvider>
+          </RevenueCatProvider>
         </SupabaseProvider>
       </QueryClientProvider>
     </ErrorBoundary>

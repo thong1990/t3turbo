@@ -7,7 +7,7 @@ import * as ImagePicker from "expo-image-picker"
 import { useState } from "react"
 import { BannerAd } from "~/features/ads/components/BannerAd"
 import { useUserProfile } from "~/features/auth/hooks/use-user-profile"
-import { useSubscriptionFeatures, PaywallButton } from "~/features/subscriptions"
+
 import { Container } from "~/shared/components/container"
 import {
   Avatar,
@@ -20,11 +20,11 @@ import { useProfileUtils } from "~/shared/hooks/use-profile-utils"
 import { useSignOut, useUser } from "~/features/supabase/hooks"
 import { toast } from "sonner-native"
 
+
 export default function ProfileScreen() {
   const { data: user } = useUser()
   const { mutate: signOut } = useSignOut()
   const { profile, updateProfile, createProfile, isUpdating } = useUserProfile()
-  const { isSubscribed, currentPlan } = useSubscriptionFeatures()
   const { getAvatarUrl } = useProfileUtils()
 
   // Inline editing states
@@ -42,6 +42,11 @@ export default function ProfileScreen() {
         toast.error("Failed to copy App ID")
       }
     }
+  }
+
+  const handleUpgrade = async () => {
+    // Navigate to direct paywall screen
+    router.push('/revenuecat-paywall');
   }
 
   const startInlineEdit = (field: string, currentValue: string) => {
@@ -227,14 +232,7 @@ export default function ProfileScreen() {
                     </View>
                   </TouchableOpacity>
                   
-                  {isSubscribed && (
-                    <View className="flex-row items-center gap-1">
-                      <Ionicons name="star" size={16} className="text-primary" />
-                      <Text className="font-bold text-primary text-sm uppercase tracking-wider">
-                        {currentPlan} Member
-                      </Text>
-                    </View>
-                  )}
+                  
                 </View>
                 
                 {/* Profile Info Rows */}
@@ -410,20 +408,20 @@ export default function ProfileScreen() {
 
             {/* Subscription Card */}
             {user && (
-              <View className={`rounded-2xl p-4 ${isSubscribed ? 'bg-green-500/10 border border-green-500/20' : 'bg-card'} shadow-sm`}>
+              <View className={`rounded-2xl p-4 bg-green-500/10 border border-green-500/20 shadow-sm`}>
                 <View className="flex-row items-center justify-between">
                   <View className="flex-1">
                     <View className="flex-row items-center gap-2">
-                      <Ionicons name={isSubscribed ? "star" : "diamond"} size={16} className={isSubscribed ? "text-green-600" : "text-primary"} />
-                      <Text className="font-semibold text-foreground">{isSubscribed ? `${currentPlan.toUpperCase()} Plan` : "Free Plan"}</Text>
+                      <Ionicons name="star" size={16} className="text-green-600" />
+                      <Text className="font-semibold text-foreground">Pro Plan</Text>
                     </View>
                     <Text className="mt-1 text-muted-foreground text-xs">
-                      {isSubscribed ? "Premium features active" : "Upgrade for premium features"}
+                      Premium features active
                     </Text>
                   </View>
-                  {!isSubscribed && (
-                    <PaywallButton title="Upgrade" className="px-3 py-1" presentationType="modal" />
-                  )}
+                  <Button onPress={handleUpgrade} className="px-3 py-1">
+                    <Text>Upgrade</Text>
+                  </Button>
                 </View>
               </View>
             )}
