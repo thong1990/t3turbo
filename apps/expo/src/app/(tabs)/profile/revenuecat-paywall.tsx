@@ -36,7 +36,6 @@ export default function Index() {
         title="Show Paywall" 
         onPress={() => RevenueCatUI.presentPaywallIfNeeded({
           requiredEntitlementIdentifier: "Premium"
-        
         })}
       />
     </View>
