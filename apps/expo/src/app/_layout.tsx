@@ -1,12 +1,13 @@
+import React, { useEffect } from "react"
 import { Stack } from "expo-router"
 import * as SplashScreen from "expo-splash-screen"
-import React from "react"
+import * as Sentry from "@sentry/react-native"
 
 import "react-native-reanimated"
-import * as Sentry from "@sentry/react-native"
-import Providers from "~/shared/components/providers"
-import { ErrorBoundary } from "~/shared/components/error-boundary"
 import { useAuthEffects } from "~/features/auth/hooks/use-auth-effects"
+import { initializeRevenueCat } from "~/features/subscriptions/revenuecat-setup"
+import { ErrorBoundary } from "~/shared/components/error-boundary"
+import Providers from "~/shared/components/providers"
 import {
   useHideSplashScreen,
   useInitialAndroidBarSync,
@@ -39,7 +40,11 @@ function RootLayout() {
   const fontsLoaded = useLoadFonts()
   useHideSplashScreen(fontsLoaded)
 
-  
+  // Initialize RevenueCat when app starts
+  useEffect(() => {
+    initializeRevenueCat()
+  }, [])
+
   return (
     <ErrorBoundary>
       <Providers>
