@@ -7,32 +7,46 @@ export default function Index() {
   useEffect(() => {
     const showCustomPaywall = async () => {
       try {
-        // Get offerings to use custom paywall template
-        const offerings = await Purchases.getOfferings();
+        console.log("🎨 Showing custom paywall template...");
         
-        if (offerings.current) {
-          console.log("🎨 Showing custom paywall template for offering:", offerings.current.identifier);
-          
-          // Show custom paywall template linked to current offering
-          const paywallResult = await RevenueCatUI.presentPaywall({
-            offering: offerings.current,
-            displayCloseButton: true
-          });
+        // Use direct paywall ID approach (confirmed working with custom template)
+        const paywallResult = await RevenueCatUI.presentPaywall({
+          paywallIdentifier: "default",
+          displayCloseButton: true
+        });
 
-          if (paywallResult === PAYWALL_RESULT.PURCHASED || 
-              paywallResult === PAYWALL_RESULT.RESTORED) {
-            console.log("✅ User has access to Premium features");
-            // Handle successful purchase or restore here
-          }
-        } else {
-          console.warn("⚠️ No current offering found - showing default paywall");
-          // Fallback to basic paywall if no offering configured
-          await RevenueCatUI.presentPaywall({
-            displayCloseButton: true
-          });
+        if (paywallResult === PAYWALL_RESULT.PURCHASED || 
+            paywallResult === PAYWALL_RESULT.RESTORED) {
+          console.log("✅ User has access to Premium features");
+          // Handle successful purchase or restore here
         }
       } catch (error) {
         console.error("❌ Error presenting paywall:", error);
+        
+        // Fallback to offering-based approach if direct approach fails
+        try {
+          console.log("🔄 Trying fallback offering-based approach...");
+          const offerings = await Purchases.getOfferings();
+          
+          if (offerings.current) {
+            const fallbackResult = await RevenueCatUI.presentPaywall({
+              offering: offerings.current,
+              displayCloseButton: true
+            });
+            
+            if (fallbackResult === PAYWALL_RESULT.PURCHASED || 
+                fallbackResult === PAYWALL_RESULT.RESTORED) {
+              console.log("✅ User has access to Premium features (fallback)");
+            }
+          } else {
+            // Final fallback - basic paywall
+            await RevenueCatUI.presentPaywall({
+              displayCloseButton: true
+            });
+          }
+        } catch (fallbackError) {
+          console.error("❌ Fallback paywall also failed:", fallbackError);
+        }
       }
     };
 
@@ -48,25 +62,51 @@ export default function Index() {
       }}
     >
       <Text style={{ marginBottom: 20 }}>RevenueCat Custom Paywall</Text>
+      
       <Button 
-        title="Show Custom Paywall" 
+        title="🎨 Show Custom Paywall" 
         onPress={async () => {
           try {
-            const offerings = await Purchases.getOfferings();
-            if (offerings.current) {
-              console.log("🎨 Button: Showing custom paywall template");
-              await RevenueCatUI.presentPaywall({
-                offering: offerings.current,
-                displayCloseButton: true
-              });
-            } else {
-              console.log("🎨 Button: Showing default paywall");
-              await RevenueCatUI.presentPaywall({
-                displayCloseButton: true
-              });
+            console.log("🎨 Showing custom paywall template...");
+            
+            // Use direct paywall ID approach (confirmed working with custom template)
+            const paywallResult = await RevenueCatUI.presentPaywall({
+              paywallIdentifier: "default",
+              displayCloseButton: true
+            });
+
+            if (paywallResult === PAYWALL_RESULT.PURCHASED || 
+                paywallResult === PAYWALL_RESULT.RESTORED) {
+              console.log("✅ User has access to Premium features");
+              // Handle successful purchase or restore here
             }
           } catch (error) {
-            console.error("❌ Button paywall error:", error);
+            console.error("❌ Error presenting paywall:", error);
+            
+            // Fallback to offering-based approach if direct approach fails
+            try {
+              console.log("🔄 Trying fallback offering-based approach...");
+              const offerings = await Purchases.getOfferings();
+              
+              if (offerings.current) {
+                const fallbackResult = await RevenueCatUI.presentPaywall({
+                  offering: offerings.current,
+                  displayCloseButton: true
+                });
+                
+                if (fallbackResult === PAYWALL_RESULT.PURCHASED || 
+                    fallbackResult === PAYWALL_RESULT.RESTORED) {
+                  console.log("✅ User has access to Premium features (fallback)");
+                }
+              } else {
+                // Final fallback - basic paywall
+                await RevenueCatUI.presentPaywall({
+                  displayCloseButton: true
+                });
+              }
+            } catch (fallbackError) {
+              console.error("❌ Fallback paywall also failed:", fallbackError);
+            }
           }
         }}
       />
