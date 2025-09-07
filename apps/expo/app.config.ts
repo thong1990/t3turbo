@@ -26,7 +26,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   android: {
     package: "com.futhong.poketradetcg",
     jsEngine: "hermes",
-    versionCode: 2,
+    versionCode: 3,
     adaptiveIcon: {
       foregroundImage: "./assets/icon-light.png",
       backgroundColor: "#1F104A",

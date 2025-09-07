@@ -1,5 +1,7 @@
 import { Platform } from 'react-native';
 import Purchases from 'react-native-purchases';
+import env from '~/shared/env';
+
 
 /**
  * Initialize RevenueCat SDK with simple Android-only setup
@@ -14,7 +16,7 @@ export const initializeRevenueCat = async () => {
       
       // Configure RevenueCat with Android API key
       await Purchases.configure({
-        apiKey: 'goog_WFMZBvxnKhlWgglzHnvPScdbFoA'
+        apiKey: env.EXPO_PUBLIC_REVENUECAT_API_KEY_ANDROID
       });
       
       console.log('✅ RevenueCat initialized successfully for Android');
@@ -24,4 +26,9 @@ export const initializeRevenueCat = async () => {
   } catch (error) {
     console.error('❌ RevenueCat initialization failed:', error);
   }
+};
+
+export const getRevenueCatCustomerInfo = async () => {
+  const customerInfo = await Purchases.getCustomerInfo();
+  return customerInfo;
 };
