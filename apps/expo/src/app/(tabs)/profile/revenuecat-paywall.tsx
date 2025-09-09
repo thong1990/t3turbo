@@ -7,12 +7,8 @@ export default function Index() {
   useEffect(() => {
     const showCustomPaywall = async () => {
       try {
-        console.log("🎨 Showing custom paywall template...");
-        
-        // Use direct paywall ID approach (confirmed working with custom template)
         const paywallResult = await RevenueCatUI.presentPaywall({
-          paywallIdentifier: "default",
-          displayCloseButton: true
+          requiredEntitlementIdentifier: "premium"
         });
 
         if (paywallResult === PAYWALL_RESULT.PURCHASED || 
